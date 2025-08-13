@@ -7,8 +7,9 @@
   box-sizing: border-box;
 }
 
-body {
+.body {
   background-color: var(--color-light-2);
+  padding-bottom: 40px;
 }
 
 a {
