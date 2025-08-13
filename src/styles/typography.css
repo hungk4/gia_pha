@@ -1,0 +1,80 @@
+@import './theme.css';
+
+/* ===== Headings ===== */
+.h1 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--h1-size);
+  line-height: var(--lh-heading);
+}
+
+.h2 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--h2-size);
+  line-height: var(--lh-heading);
+}
+
+.h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--h3-size);
+  line-height: var(--lh-heading);
+}
+
+.h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--h4-size);
+  line-height: var(--lh-heading);
+}
+
+.h5 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--h5-size);
+  line-height: var(--lh-heading);
+}
+
+/* ===== Paragraphs ===== */
+/* p1 */
+.p1-r {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--p1-size);
+  line-height: var(--lh-body);
+}
+.p1-b {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--p1-size);
+  line-height: var(--lh-body);
+}
+
+/* p2 */
+.p2-r {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--p2-size);
+  line-height: var(--lh-body);
+}
+.p2-b {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--p2-size);
+  line-height: var(--lh-body);
+}
+
+/* p3 */
+.p3-r {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--p3-size);
+  line-height: var(--lh-body);
+}
+.p3-b {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--p3-size);
+  line-height: var(--lh-body);
+}

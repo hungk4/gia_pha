@@ -1,0 +1,39 @@
+:root {
+  /* ===== Colors ===== */
+  --color-primary: #D4A373;
+  --color-primary-dark: #CB9056;
+
+  --color-light-1: #FFFFFF;
+  --color-light-2: #FAF7F4;
+  --color-light-3: #EDE5DE;
+
+  --color-dark-1: #362617;
+  --color-dark-2: #53402D;
+  --color-dark-3: #6B5947;
+
+  --color-blue-light: #81B1EC;
+  --color-yellow: #EEC94A;
+  --color-orange: #FCA311;
+  --color-blue: #0066FF;
+  --color-gray: #7F776F;
+  --color-pink: #F4978E;
+  --color-teal: #72BDD4;
+
+  /* ===== Fonts ===== */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Roboto', sans-serif;
+
+  /* ===== Heading sizes & line-height ===== */
+  --h1-size: 40px;
+  --h2-size: 32px;
+  --h3-size: 24px;
+  --h4-size: 18px;
+  --h5-size: 14px;
+  --lh-heading: 125%;
+
+  /* ===== Paragraph sizes & line-height ===== */
+  --p1-size: 16px;
+  --p2-size: 14px;
+  --p3-size: 12px;
+  --lh-body: 150%;
+}

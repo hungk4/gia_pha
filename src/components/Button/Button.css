@@ -1,0 +1,10 @@
+.button {
+  background-color: var(--color-primary);
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: none;
+}
+
+.button-text {
+  color: var(--color-light-1);
+}
