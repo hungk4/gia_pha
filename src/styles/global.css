@@ -9,7 +9,9 @@
 
 .body {
   background-color: var(--color-light-2);
+  margin-top: 64px;
   padding-bottom: 40px;
+  width: 100%;
 }
 
 a {

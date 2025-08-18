@@ -1,3 +1,22 @@
 .giapha-container {
   margin-top: 64px;
+  padding: 32px 96px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
+
+/* tool-start */
+.tool {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 32px;
+}
+
+.tool-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* tool-end */

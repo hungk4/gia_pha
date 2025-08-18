@@ -1,20 +1,32 @@
+import FamilyTree from "../../components/FamilyTree/FamilyTree";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import Search from "../../components/Search/Search";
+import Button from "../../components/Button/Button";
 
-import "./Giapha.css"
+import "./Giapha.css";
 
 function Giapha() {
   return (
     <>
-      <Header/>
-      <div className="giapha-container">
-        <h1 className="giapha-title">trang gia phả</h1>
-        <p className="giapha-description">    
-          Đây là trang gia phả của dòng họ Nguyễn, nơi lưu giữ thông tin về
-          tổ tiên, các thế hệ trong dòng họ
-        </p> 
+      <Header />
+      <div className="body">
+        <div className="giapha-container">
+          <h3 className="giapha-title h3">Gia phả</h3>
+          <div className="tool">
+            <div className="tool-left">
+              <Search placeholder="Tìm kiếm thành viên" />
+              <Search placeholder="Hiển thị số thế hệ" />
+            </div>
+            <div className="tool-right">
+              <Button text="Xuất gia phả" />
+            </div>
+          </div>
+          <FamilyTree />
+        </div>
       </div>
+      <Footer />
     </>
-
   );
 }
 
