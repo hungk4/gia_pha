@@ -32,7 +32,6 @@ const familyData = {
       couple: [{ name: "C1", gender: "male" }],
       children: [
         { name: "F", gender: "female" },
-        { name: "G", gender: "male" },
       ],
     },
   ],

@@ -1,4 +1,4 @@
-import "./Card.css";
+import "./Card1.css";
 import bannerImg from "../../assets/images/hero_banner.jpg";
 function Card1(props) {
   return (
@@ -15,4 +15,4 @@ function Card1(props) {
   );
 }
 
-export { Card1 };
+export default Card1;

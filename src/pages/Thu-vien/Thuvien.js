@@ -2,7 +2,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Search from "../../components/Search/Search";
 import "./Thuvien.css";
-import { Card1 } from "../../components/Card/Card";
+import Card1 from "../../components/Card1/Card1";
 function Thuvien() {
   return (
     <>
