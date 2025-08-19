@@ -3,8 +3,8 @@ import * as d3 from "d3";
 
 import "./FamilyTree.css";
 
-import rongTrai from "../../assets/images/rongTrai.png"
-import rongPhai from "../../assets/images/rongPhai.png"
+import rongTrai from "../../assets/images/rongTrai.png";
+import rongPhai from "../../assets/images/rongPhai.png";
 import board from "../../assets/images/cuonthu.png";
 
 const familyData = {
@@ -159,8 +159,8 @@ function FamilyTree() {
             </button>
           </div>
           <div class="avatar"></div>
-          <div class="name">${d.data.name}</div>
-          <div class="year">${d.data.year || "19xx"}</div>
+          <div class="name p2-b">${d.data.name}</div>
+          <div class="year p2-b">${d.data.year || "19xx"}</div>
         `);
 
       // Vẽ couple
@@ -170,7 +170,7 @@ function FamilyTree() {
           const coupleG = group
             .append("g")
             .attr("class", `node ${c.gender}`)
-            .attr("transform", `translate(${offsetX},0)`);
+            .attr("transform", `translate(${offsetX + 2},0)`);
 
           coupleG
             .append("rect")
@@ -198,7 +198,8 @@ function FamilyTree() {
           </button>
         </div>
         <div class="avatar"></div>
-        <div class="name">${c.name}</div>
+        <div class="name p2-b">${c.name}</div>
+        <div class="year p2-b">${c.year || "19xx"}</div>
       `);
         });
       }

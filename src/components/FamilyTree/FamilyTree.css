@@ -91,3 +91,7 @@
 .node-tool .tool-btn .material-symbols-outlined {
   font-size: 20px;
 }
+
+.name,.year {
+  color: var(--color-dark-1);
+}
