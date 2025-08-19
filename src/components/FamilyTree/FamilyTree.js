@@ -3,6 +3,10 @@ import * as d3 from "d3";
 
 import "./FamilyTree.css";
 
+import rongTrai from "../../assets/images/rongTrai.png"
+import rongPhai from "../../assets/images/rongPhai.png"
+import board from "../../assets/images/cuonthu.png";
+
 const familyData = {
   name: "A",
   gender: "male",
@@ -38,17 +42,19 @@ function FamilyTree() {
   const svgRef = useRef();
 
   useEffect(() => {
+    // Xét kích thước của SVG
     const svgElement = svgRef.current;
     const width = svgElement.parentElement.getBoundingClientRect().width;
     const height = 1000;
 
+    // Kích thước của hình chữ nhật node
     const rectWidth = 150;
     const rectHeight = 188;
 
     // Dùng d3.hierarchy
     const root = d3.hierarchy(familyData);
 
-    // Layout tree
+    // Tao layout tree
     const treeLayout = d3
       .tree()
       .nodeSize([190, 268]) // 190 = 150 + 40, 40 là gap 2 node, 268 = 188 + 80, 80 là gap giữa parent và child
@@ -59,7 +65,7 @@ function FamilyTree() {
           rectWidth + (b.data.couple ? b.data.couple.length * rectWidth : 0); // width thực tế của node b nếu có thêm couple
         return (
           ((a.parent === b.parent ? 1 : 1.5) * Math.max(widthA, widthB)) /
-          rectWidth
+          rectWidth // khoảng cách giữa các node cùng cha là 1.5 lần chiều rộng lớn nhất của chúng * thêm width thực tế của 1 node nếu có thêm couple / rectWidth để lấy tỉ lệ
         );
       });
     treeLayout(root);
@@ -72,7 +78,29 @@ function FamilyTree() {
 
     const g = svg
       .append("g")
-      .attr("transform", `translate(${width / 2 - rectWidth / 2}, 200)`);
+      .attr("transform", `translate(${width / 2 - rectWidth / 2}, 150)`);
+
+    // // Zoom behavior
+    // const zoom = d3
+    //   .zoom()
+    //   .scaleExtent([0.3, 2]) // Giới hạn zoom nhỏ nhất 30%, lớn nhất 200%
+    //   .on("zoom", (event) => {
+    //     g.attr("transform", event.transform); // Cập nhật transform khi zoom/pan
+    //   });
+
+    // // Gắn zoom vào svg
+    // svg.call(zoom);
+
+    // // Reset về mặc định khi double-click
+    // svg.on("dblclick", () => {
+    //   svg
+    //     .transition()
+    //     .duration(750)
+    //     .call(
+    //       zoom.transform,
+    //       d3.zoomIdentity.translate(width / 2 - rectWidth / 2, 200).scale(1) // reset pan + scale
+    //     );
+    // });
 
     // Vẽ link
     g.selectAll(".link")
@@ -83,9 +111,9 @@ function FamilyTree() {
       .attr("stroke", "#555")
       .attr("stroke-width", 2)
       .attr("x1", (d) => d.source.x)
-      .attr("y1", (d) => d.source.y)
+      .attr("y1", (d) => d.source.y + rectHeight / 2)
       .attr("x2", (d) => d.target.x)
-      .attr("y2", (d) => d.target.y);
+      .attr("y2", (d) => d.target.y - rectHeight / 2);
 
     // Vẽ node + couple
     const nodes = g
@@ -179,6 +207,18 @@ function FamilyTree() {
 
   return (
     <div className="family-tree-container">
+      <div className="title-board">
+        <div class="dragon">
+          <img src={rongTrai} alt="rongTrai"></img>
+        </div>
+        <div className="board">
+          <img src={board} alt="board"></img>
+          <p className="h4">Gia phả họ Nguyễn</p>
+        </div>
+        <div class="dragon">
+          <img src={rongPhai} alt="rongPhai"></img>
+        </div>
+      </div>
       <svg ref={svgRef}></svg>
     </div>
   );
