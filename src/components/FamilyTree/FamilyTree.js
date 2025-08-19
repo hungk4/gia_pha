@@ -30,9 +30,7 @@ const familyData = {
       name: "C",
       gender: "female",
       couple: [{ name: "C1", gender: "male" }],
-      children: [
-        { name: "F", gender: "female" },
-      ],
+      children: [{ name: "F", gender: "female" }],
     },
   ],
 };
@@ -75,31 +73,25 @@ function FamilyTree() {
       .attr("height", height);
     svg.selectAll("*").remove();
 
+    // Vị trí ban đầu của cây để cây nằm giữa khung
+    const initialX = width / 2 - rectWidth / 2;
+    const initialY = 150;
+
     const g = svg
       .append("g")
-      .attr("transform", `translate(${width / 2 - rectWidth / 2}, 150)`);
+      .attr("transform", `translate(${initialX}, ${initialY})`);
 
-    // // Zoom behavior
-    // const zoom = d3
-    //   .zoom()
-    //   .scaleExtent([0.3, 2]) // Giới hạn zoom nhỏ nhất 30%, lớn nhất 200%
-    //   .on("zoom", (event) => {
-    //     g.attr("transform", event.transform); // Cập nhật transform khi zoom/pan
-    //   });
+    // Thiết lập zoom
+    let myZoom = d3.zoom().on("zoom", function (e) {
+      g.attr(
+        "transform",
+        `translate(${e.transform.x + initialX}, ${
+          e.transform.y + initialY
+        }) scale(${e.transform.k})`
+      );
+    });
 
-    // // Gắn zoom vào svg
-    // svg.call(zoom);
-
-    // // Reset về mặc định khi double-click
-    // svg.on("dblclick", () => {
-    //   svg
-    //     .transition()
-    //     .duration(750)
-    //     .call(
-    //       zoom.transform,
-    //       d3.zoomIdentity.translate(width / 2 - rectWidth / 2, 200).scale(1) // reset pan + scale
-    //     );
-    // });
+    svg.call(myZoom);
 
     // Vẽ link
     g.selectAll(".link")
@@ -208,14 +200,14 @@ function FamilyTree() {
   return (
     <div className="family-tree-container">
       <div className="title-board">
-        <div class="dragon">
+        <div className="dragon">
           <img src={rongTrai} alt="rongTrai"></img>
         </div>
         <div className="board">
           <img src={board} alt="board"></img>
           <p className="h4">Gia phả họ Nguyễn</p>
         </div>
-        <div class="dragon">
+        <div className="dragon">
           <img src={rongPhai} alt="rongPhai"></img>
         </div>
       </div>
