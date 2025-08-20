@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
+import { useNavigate } from "react-router-dom";
+
 import "./FamilyTree.css";
 
 import rongTrai from "../../assets/images/rongTrai.png";
@@ -39,6 +41,8 @@ function FamilyTree() {
   const svgRef = useRef();
 
   const [popup, setPopup] = useState(null);
+
+  const navigate = useNavigate();
 
   function closePopup() {
     setPopup(null);
@@ -250,9 +254,19 @@ function FamilyTree() {
           className="popup-menu p2-r"
           style={{ position: "absolute", left: popup.x, top: popup.y }}
         >
-          <span class="material-symbols-outlined close-btn" onClick={closePopup}>close</span>
+          <span
+            class="material-symbols-outlined close-btn"
+            onClick={closePopup}
+          >
+            close
+          </span>
           <div className="menu-title">Hành động</div>
-          <button onClick={() => console.log("Xem chi tiết", popup.data)}>
+          <button
+            onClick={() => {
+              console.log("Xem chi tiết", popup.data);
+              navigate(`/gia-pha/chi-tiet`);
+            }}
+          >
             Xem chi tiết
           </button>
           <button onClick={() => console.log("Xem đời sau")}>

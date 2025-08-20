@@ -5,6 +5,7 @@ import Giapha from "./pages/Gia-pha/Giapha";
 import Thuvien from "./pages/Thu-vien/Thuvien";
 import Sukien from "./pages/Su-kien/Sukien";
 import Album from "./pages/Thu-vien/Album";
+import DetailInfo from "./pages/Gia-pha/DetailInfo";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/gia-pha" element={<Giapha />} />
+        <Route path="/gia-pha/chi-tiet" element={<DetailInfo />} />
         <Route path="/thu-vien" element={<Thuvien />} />
         <Route path="/thu-vien/album" element={<Album/>} />
         <Route path="/su-kien" element={<Sukien />} />
