@@ -38,11 +38,6 @@ const familyData = {
 function FamilyTree() {
   const svgRef = useRef();
 
-  const [popup, setPopup] = useState(null);
-
-  function closePopup() {
-    setPopup(null);
-  }
 
   useEffect(() => {
     // Xét kích thước của SVG
@@ -160,19 +155,6 @@ function FamilyTree() {
           <div class="year p2-b">${d.data.year || "19xx"}</div>
         `);
 
-      // Gắn sự kiện cho nút tool-btn
-      d3.select(mainNode.node().querySelector(".tool-btn")).on(
-        "click",
-        (event) => {
-          event.stopPropagation();
-          setPopup({
-            x: event.pageX,
-            y: event.pageY,
-            data: d.data,
-          });
-        }
-      );
-
       // Vẽ couple
       if (d.data.couple && d.data.couple.length > 0) {
         d.data.couple.forEach((c, i) => {
@@ -211,19 +193,6 @@ function FamilyTree() {
               <div class="name p2-b">${c.name}</div>
               <div class="year p2-b">${c.year || "19xx"}</div>
             `);
-
-          // Gắn sự kiện cho nút tool-btn
-          d3.select(coupleG.node().querySelector(".tool-btn")).on(
-            "click",
-            (event) => {
-              event.stopPropagation();
-              setPopup({
-                x: event.pageX,
-                y: event.pageY,
-                data: c,
-              });
-            }
-          );
         });
       }
     });
@@ -247,11 +216,21 @@ function FamilyTree() {
 
       {popup && (
         <div
-          className="popup-menu p2-r"
-          style={{ position: "absolute", left: popup.x, top: popup.y }}
+          className="popup-menu"
+          style={{
+            position: "absolute",
+            top: popup.y,
+            left: popup.x,
+            background: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "6px",
+            padding: "8px",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+            zIndex: 1000,
+          }}
+          onClick={(e) => e.stopPropagation()} // chặn click để không tắt popup ngay
         >
-          <span class="material-symbols-outlined close-btn" onClick={closePopup}>close</span>
-          <div className="menu-title">Hành động</div>
+          <p className="menu-title">Hành động</p>
           <button onClick={() => console.log("Xem chi tiết", popup.data)}>
             Xem chi tiết
           </button>
