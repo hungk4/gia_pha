@@ -1,18 +1,25 @@
 import "./Card1.css";
 import bannerImg from "../../assets/images/hero_banner.jpg";
-function Card1(props) {
+
+import { useNavigate } from "react-router-dom";
+
+function Card1({ img, title, id }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/thu-vien/album`);
+  };
+
   return (
-    <div className="card">
+    <div className="card1" onClick={handleClick}>
       <div className="card-media">
-        {props.img ? (
-          <img src={props.img} alt="Card Media" />
-        ) : (
-          <img src={bannerImg} alt="Card Media" />
-        )}
+        {img ? <img src={img} alt="Card Media" /> : <img src={bannerImg} alt="Card Media" />}
       </div>
-      <p className="card-title p2-r">{props.title ? props.title : "title"}</p>
+      <p className="card-title p2-r">{title || "title"}</p>
     </div>
   );
 }
 
 export default Card1;
+
+

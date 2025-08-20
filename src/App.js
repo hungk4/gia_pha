@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home";
 import Giapha from "./pages/Gia-pha/Giapha";
 import Thuvien from "./pages/Thu-vien/Thuvien";
 import Sukien from "./pages/Su-kien/Sukien";
+import Album from "./pages/Thu-vien/Album";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/gia-pha" element={<Giapha />} />
         <Route path="/thu-vien" element={<Thuvien />} />
+        <Route path="/thu-vien/album" element={<Album/>} />
         <Route path="/su-kien" element={<Sukien />} />
         {/* Add more routes as needed */}
         <Route path="*" element={<h1>404 Not Found</h1>} />

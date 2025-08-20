@@ -8,18 +8,18 @@
 }
 
 /* tool-start */
-.tool {
+.thuvien-container .tool {
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
 }
 
-.label-select {
-  margin-right: 16px;
+.thuvien-container .tool .tool-left .label-select {
+  margin-right: 8px;
   color: var(--color-dark-2);
 }
 
-.select-options {
+.thuvien-container .tool .tool-left .select-options {
   padding: 8px 8px;
   border-radius: 8px;
   border: 1px solid var(--color-light-3);
@@ -27,7 +27,6 @@
   color: var(--color-dark-3);
   font-size: 14px;
 }
-
 /* tool-end */
 
 
