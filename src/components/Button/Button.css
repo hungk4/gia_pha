@@ -8,3 +8,8 @@
 .button-text {
   color: var(--color-light-1);
 }
+
+.button:hover {
+  cursor: pointer;
+  
+}

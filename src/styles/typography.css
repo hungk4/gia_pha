@@ -46,7 +46,7 @@
 }
 .p1-b {
   font-family: var(--font-body);
-  font-weight: 525;
+  font-weight: 600;
   font-size: var(--p1-size);
   line-height: var(--lh-body);
 }

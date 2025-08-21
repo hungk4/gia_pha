@@ -15,8 +15,8 @@ function Giapha() {
           <h3 className="giapha-title h3">Gia phả</h3>
           <div className="tool">
             <div className="tool-left">
-              <Search placeholder="Tìm kiếm thành viên" />
-              <Search placeholder="Hiển thị số thế hệ" />
+              <Search placeholder="Tìm kiếm thành viên" icon="" />
+              <Search placeholder="Hiển thị số thế hệ" icon="eye_tracking"/>
             </div>
             <div className="tool-right">
               <Button text="Xuất gia phả" />
