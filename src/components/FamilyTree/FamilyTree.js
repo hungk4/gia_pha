@@ -91,17 +91,22 @@ function FamilyTree() {
       .append("g")
       .attr("transform", `translate(${initialX}, ${initialY})`);
 
+    
     // Thiết lập zoom
-    let myZoom = d3.zoom().on("zoom", function (e) {
-      g.attr(
-        "transform",
-        `translate(${e.transform.x + initialX}, ${
-          e.transform.y + initialY
-        }) scale(${e.transform.k})`
-      );
+    // 1. Tạo zoom behavior
+    const myZoom = d3.zoom().on("zoom", (e) => {
+      g.attr("transform", e.transform);
     });
 
+    // 2. Gọi zoom vào svg
     svg.call(myZoom);
+
+    // 3. Áp dụng transform ban đầu để cây nằm giữa
+    const initialTransform = d3.zoomIdentity
+      .translate(initialX, initialY)
+      .scale(1);
+    svg.call(myZoom.transform, initialTransform);
+
 
     // Vẽ link
     g.selectAll(".link")
