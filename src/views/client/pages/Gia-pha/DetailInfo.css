@@ -1,0 +1,99 @@
+.detailInfo-container {
+  padding: 32px 96px;
+}
+
+.detailInfo-card {
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  border: 1px solid var(--color-light-3);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-light-1);
+  border-radius: 8px;
+}
+
+/* close btn start */
+.detailInfo-card .close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+}
+/* close btn end */
+
+/* header start */
+.detailInfo-header {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.detailInfo-header .title {
+  color: var(--color-dark-1);
+}
+/* header end */
+
+/* avatar start */
+.detailInfo-card .avatar {
+  width: 120px;
+  height: 120px;
+}
+
+.detailInfo-card .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+/* avatar end */
+
+/* tab start  */
+.detailInfo-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.detailInfo-tabs button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 100px;
+  background-color: var(--color-light-2);
+  color: var(--color-dark-2);
+  cursor: pointer;
+}
+
+.detailInfo-tabs button.active {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 100px;
+  background-color: var(--color-primary);
+  color: var(--color-light-1);
+}
+/* tab end */
+
+/* content start */
+.detailInfo-card .content .personal-info,
+.detailInfo-card .content .family-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.personal-info p,
+.family-info p {
+  padding: 8px 8px;
+  color: var(--color-dark-2);
+  border-bottom: 1px solid var(--color-light-3);
+}
+
+.personal-info p:last-child,
+.family-info p:last-child {
+  border: none;
+}
+/* content end */

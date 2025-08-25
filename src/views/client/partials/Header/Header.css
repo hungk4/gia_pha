@@ -27,9 +27,13 @@
   display: flex;
   list-style: none;
   gap: 80px;
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
 }
 
 .header nav ul li {
   cursor: pointer;
+}
+
+.header nav ul li a:hover {
+  color: var(--color-primary-dark);
 }
