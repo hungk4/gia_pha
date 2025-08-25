@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./Header.css";
 
 function Header() {
+  const [isSidebar, setIsSidebar] = useState(false);
+
   return (
     <header className="header">
       <div className="container">
         <div className="logo h4">GiaphaViet</div>
-        <nav>
+        <nav className={isSidebar ? "sidebar" : ""}>
           <ul className="p1-b">
             <li>
               <Link to="/">Trang chủ</Link>
@@ -22,6 +25,12 @@ function Header() {
             </li>
           </ul>
         </nav>
+        <span
+          className="material-symbols-outlined"
+          onClick={() => setIsSidebar(!isSidebar)}
+        >
+          menu
+        </span>
       </div>
     </header>
   );

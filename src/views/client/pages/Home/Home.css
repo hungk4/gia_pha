@@ -1,3 +1,4 @@
+/* hero banner start */
 .hero-banner {
   position: relative;
   height: 560px;
@@ -24,9 +25,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: center;
 }
+
+/* hero banner end */
