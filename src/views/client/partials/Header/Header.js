@@ -9,7 +9,7 @@ function Header() {
     <header className="header">
       <div className="container">
         <div className="logo h4">GiaphaViet</div>
-        <nav className={isSidebar ? "sidebar" : ""}>
+        <nav className={`sidebar ${isSidebar ? "active" : ""}`}>
           <ul className="p1-b">
             <li>
               <Link to="/">Trang chủ</Link>
