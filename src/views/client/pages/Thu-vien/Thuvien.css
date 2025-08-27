@@ -2,8 +2,8 @@
   padding: 32px 96px;
 }
 
-.title-page {
-  margin-bottom: 32px;
+.thuvien-container .title-page {
+  margin-bottom: 16px;
   color: var(--color-dark-2);
 }
 
@@ -11,7 +11,7 @@
 .thuvien-container .tool {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .thuvien-container .tool .tool-left .label-select {

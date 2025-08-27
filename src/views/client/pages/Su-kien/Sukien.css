@@ -196,3 +196,16 @@
   background-color: var(--color-primary-dark);
 }
 /* popup end */
+
+
+@media (max-width: 768px) {
+  .sukien-container {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sukien-container {
+    padding: 32px 12px;
+  }
+}
