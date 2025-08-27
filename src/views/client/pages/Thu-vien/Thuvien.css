@@ -29,12 +29,7 @@
 }
 /* tool-end */
 
-
 .album-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 24px;
-  row-gap: 24px;
   margin-bottom: 32px;
 }
 
@@ -78,3 +73,19 @@
 }
 
 /* pagination-end */
+
+@media (max-width: 768px) {
+  .thuvien-container .tool {
+    display: flex;
+    flex-direction: column;
+  }
+  .thuvien-container {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .thuvien-container {
+    padding: 32px 12px;
+  }
+}

@@ -26,7 +26,12 @@ function Section(props) {
         <div className="line"></div>
       </div>
 
-      <Row gutter={[32, 32]} className="section-content" align="middle">
+      <Row
+        gutter={[32, 32]}
+        className="section-content"
+        justify="center"
+        align="middle"
+      >
         <Col xs={24} md={12} className="section-text p1-r">
           {props.text ? <p>{props.text}</p> : <p>Nội dung đang cập nhật....</p>}
         </Col>

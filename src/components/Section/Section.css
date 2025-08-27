@@ -54,6 +54,6 @@
 
 @media (max-width: 480px) {
   .section {
-    padding: 0 12px; /* mobile */
+    padding: 0 12px;
   }
 }

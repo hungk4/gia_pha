@@ -1,8 +1,8 @@
-
-
 import Search from "../../../../components/Search/Search";
 import "./Thuvien.css";
 import Card1 from "../../../../components/Card1/Card1";
+import { Row, Col } from "antd";
+
 function Thuvien() {
   return (
     <>
@@ -29,53 +29,19 @@ function Thuvien() {
               <Search placeholder="Tìm kiếm album" />
             </div>
           </div>
-          <div className="album-grid">
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-            <div className="album-item">
-              <Card1 title="Img Title" />
-            </div>
-          </div>
+           <Row gutter={[24, 24]} className="album-grid">
+            {Array.from({ length: 15 }).map((_, i) => (
+              <Col
+                key={i}
+                xs={24}  
+                sm={12}  
+                md={8}
+                className="album-item"
+              >
+                <Card1 title={`Img Title ${i + 1}`} />
+              </Col>
+            ))}
+          </Row>
           <div className="pagination">
             <button className="p2-r inactive">Previous</button>
             <button className="p2-r active">1</button>
