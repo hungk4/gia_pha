@@ -78,6 +78,7 @@
   .thuvien-container .tool {
     display: flex;
     flex-direction: column;
+    gap: 8px;
   }
   .thuvien-container {
     padding: 32px 24px;
