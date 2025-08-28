@@ -1,5 +1,11 @@
 import "./Search.css";
-function Search(props) {
+
+interface SearchProps {
+  placeholder?: string;
+  icon?:string;
+}
+
+function Search(props: SearchProps) {
   return (
     <div className="search-component">
       <input
@@ -7,7 +13,7 @@ function Search(props) {
         placeholder={props.placeholder}
         className="search-input p2-r"
       />
-      <span class="material-symbols-outlined">
+      <span className="material-symbols-outlined">
         {props.icon ? props.icon : "search"}
       </span>
     </div>

@@ -1,9 +1,17 @@
+// src/components/Card1/Card1.tsx
 import "./Card1.css";
-import bannerImg from "../../assets/images/hero_banner.jpg";
+import bannerImg from "../../assets/images/hero_banner.jpg"; 
 
 import { useNavigate } from "react-router-dom";
 
-function Card1({ img, title, id }) {
+// 1. Khai báo kiểu props
+interface Card1Props {
+  img?: string;
+  title?: string;
+  id?: string | number;
+}
+
+function Card1({ img, title, id }: Card1Props) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -21,5 +29,3 @@ function Card1({ img, title, id }) {
 }
 
 export default Card1;
-
-

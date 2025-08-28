@@ -9,7 +9,15 @@ import rongTrai from "../../assets/images/rongTrai.png";
 import rongPhai from "../../assets/images/rongPhai.png";
 import board from "../../assets/images/cuonthu.png";
 
-const familyData = {
+interface Person {
+  name: string;
+  gender: "male" | "female";
+  year?: string;
+  couple?: Person[];
+  children?: Person[];
+}
+
+const familyData: Person = {
   name: "A",
   gender: "male",
   couple: [{ name: "A1", gender: "female" }],
@@ -38,9 +46,14 @@ const familyData = {
 };
 
 function FamilyTree() {
-  const svgRef = useRef();
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
-  const [popup, setPopup] = useState(null);
+  interface PopupData {
+    x: number;
+    y: number;
+    data: Person;
+  }
+  const [popup, setPopup] = useState<PopupData | null>(null);
 
   const navigate = useNavigate();
 
@@ -51,7 +64,8 @@ function FamilyTree() {
   useEffect(() => {
     // Xét kích thước của SVG
     const svgElement = svgRef.current;
-    const width = svgElement.parentElement.getBoundingClientRect().width;
+    const width =
+      svgRef.current?.parentElement?.getBoundingClientRect().width || 0;
     const height = 1000;
 
     // Kích thước của hình chữ nhật node
@@ -59,17 +73,23 @@ function FamilyTree() {
     const rectHeight = 188;
 
     // Dùng d3.hierarchy
-    const root = d3.hierarchy(familyData);
+    const root = d3.hierarchy<Person>(familyData);
 
     // Tao layout tree
     const treeLayout = d3
-      .tree()
+      .tree<Person>()
       .nodeSize([190, 268]) // 190 = 150 + 40, 40 là gap 2 node, 268 = 188 + 80, 80 là gap giữa parent và child
       .separation((a, b) => {
+        // ép kiểu để TypeScript biết data có kiểu Person.
+        const nodeA = a as d3.HierarchyNode<Person>;
+        const nodeB = b as d3.HierarchyNode<Person>;
+
         const widthA =
-          rectWidth + (a.data.couple ? a.data.couple.length * rectWidth : 0); // width thực tế của node a nếu có thêm couple
+          rectWidth +
+          (nodeA.data.couple ? nodeA.data.couple.length * rectWidth : 0); // width thực tế của node a nếu có thêm couple
         const widthB =
-          rectWidth + (b.data.couple ? b.data.couple.length * rectWidth : 0); // width thực tế của node b nếu có thêm couple
+          rectWidth +
+          (nodeB.data.couple ? nodeB.data.couple.length * rectWidth : 0); // width thực tế của node b nếu có thêm couple
         return (
           ((a.parent === b.parent ? 1 : 1.5) * Math.max(widthA, widthB)) /
           rectWidth // khoảng cách giữa các node cùng cha là 1.5 lần chiều rộng lớn nhất của chúng * thêm width thực tế của 1 node nếu có thêm couple / rectWidth để lấy tỉ lệ
@@ -78,7 +98,7 @@ function FamilyTree() {
     treeLayout(root);
 
     const svg = d3
-      .select(svgRef.current)
+      .select<SVGSVGElement, unknown>(svgRef.current!)
       .attr("width", width)
       .attr("height", height);
     svg.selectAll("*").remove();
@@ -91,10 +111,9 @@ function FamilyTree() {
       .append("g")
       .attr("transform", `translate(${initialX}, ${initialY})`);
 
-    
     // Thiết lập zoom
     // 1. Tạo zoom behavior
-    const myZoom = d3.zoom().on("zoom", (e) => {
+    const myZoom = d3.zoom<SVGSVGElement, unknown>().on("zoom", (e) => {
       g.attr("transform", e.transform);
     });
 
@@ -107,7 +126,6 @@ function FamilyTree() {
       .scale(1);
     svg.call(myZoom.transform, initialTransform);
 
-
     // Vẽ link
     g.selectAll(".link")
       .data(root.links())
@@ -116,10 +134,10 @@ function FamilyTree() {
       .attr("class", "link")
       .attr("stroke", "#555")
       .attr("stroke-width", 2)
-      .attr("x1", (d) => d.source.x)
-      .attr("y1", (d) => d.source.y + rectHeight / 2)
-      .attr("x2", (d) => d.target.x)
-      .attr("y2", (d) => d.target.y - rectHeight / 2);
+      .attr("x1", (d) => d.source.x!) // dấu ! để Typescript hiểu giá trị chắc chắn 0 undefined
+      .attr("y1", (d) => d.source.y! + rectHeight / 2)
+      .attr("x2", (d) => d.target.x!)
+      .attr("y2", (d) => d.target.y! - rectHeight / 2);
 
     // Vẽ node + couple
     const nodes = g
@@ -170,17 +188,17 @@ function FamilyTree() {
         `);
 
       // Gắn sự kiện cho nút tool-btn
-      d3.select(mainNode.node().querySelector(".tool-btn")).on(
-        "click",
-        (event) => {
+      const toolBtn = mainNode.node()?.querySelector(".tool-btn");
+      if (toolBtn) {
+        d3.select(toolBtn).on("click", (event) => {
           event.stopPropagation();
           setPopup({
             x: event.pageX,
             y: event.pageY,
             data: d.data,
           });
-        }
-      );
+        });
+      }
 
       // Vẽ couple
       if (d.data.couple && d.data.couple.length > 0) {
@@ -222,17 +240,17 @@ function FamilyTree() {
             `);
 
           // Gắn sự kiện cho nút tool-btn
-          d3.select(coupleG.node().querySelector(".tool-btn")).on(
-            "click",
-            (event) => {
+          const toolBtn = coupleG.node()?.querySelector(".tool-btn");
+          if (toolBtn) {
+            d3.select(toolBtn).on("click", (event) => {
               event.stopPropagation();
               setPopup({
                 x: event.pageX,
                 y: event.pageY,
                 data: c,
               });
-            }
-          );
+            });
+          }
         });
       }
     });
@@ -260,7 +278,7 @@ function FamilyTree() {
           style={{ position: "absolute", left: popup.x, top: popup.y }}
         >
           <span
-            class="material-symbols-outlined close-btn"
+            className="material-symbols-outlined close-btn"
             onClick={closePopup}
           >
             close
