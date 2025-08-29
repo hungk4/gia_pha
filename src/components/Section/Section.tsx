@@ -1,4 +1,5 @@
 import { Row, Col } from "antd";
+import "./Section.css"
 
 interface SectionProps {
   title: string;

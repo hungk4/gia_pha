@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
 import { Layout } from "antd";
+import { Outlet } from "react-router-dom";
 
 import MyHeader from "./Header/Header"
 import MyFooter from "./Footer/Footer"
@@ -8,20 +8,17 @@ import MyFooter from "./Footer/Footer"
 const { Content } = Layout;
 
 
-interface MainLayoutProps {
-  children: ReactNode;
-}
 
-function MainLayout({children} : MainLayoutProps) {
+function ClientLayout() {
   return (
     <Layout>
       <MyHeader/>
       <Content>
-        {children}
+        <Outlet />
       </Content>
       <MyFooter/>
     </Layout>
   )
 }
 
-export default MainLayout;
+export default ClientLayout;
