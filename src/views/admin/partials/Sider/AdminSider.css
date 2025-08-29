@@ -1,0 +1,39 @@
+.admin-sider {
+  position: relative;
+  background: transparent;
+  z-index: 0;
+}
+
+.admin-sider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../../assets/images/family-tree-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1; /* vẫn nằm trong stacking context của sider */
+}
+
+.admin-sider-menu {
+  background: transparent;
+  padding: 32px 0;
+}
+
+/* icon */
+.ant-menu-item-icon {
+  font-size: 24px !important;
+  color: var(--color-dark-3) !important;
+}
+
+.ant-menu-title-content {
+  color: var(--color-dark-3);
+}
+
+.admin-sider-menu .ant-menu-item-selected {
+  background-color: var(--color-light-1);
+}
