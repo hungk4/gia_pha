@@ -17,9 +17,9 @@ function AdminLayout() {
     <>
       <Layout style={layoutStyle}>
         <AdminHeader/>
-        <Layout style={{ marginTop: 64 }}>
+        <Layout style={{ marginTop: 64}}>
           <AdminSider/>
-          <Content>
+          <Content style={{padding: 32}}>
             <Outlet />
           </Content>
         </Layout>

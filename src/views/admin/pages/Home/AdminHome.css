@@ -1,0 +1,9 @@
+.title-page {
+  margin-bottom: 24px;
+}
+
+.overview {
+  display: flex;      
+  gap: 32px;           
+  flex-wrap: wrap;   
+}
