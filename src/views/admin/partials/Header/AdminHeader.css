@@ -22,13 +22,21 @@ header .container .logo {
   color: var(--color-primary);
 }
 
-.avatar {
-  width: 30px;
-  height: 30px;
+
+
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 }
 
-.avatar img {
-  width: 100%;
-  height: 100%;
+.user img {
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+}
+
+.user .name {
+  color: var(--color-primary);
 }
