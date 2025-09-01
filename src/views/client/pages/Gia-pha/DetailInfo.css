@@ -79,11 +79,16 @@
 /* tab end */
 
 /* content start */
+
+.detailInfo-container .content {
+  width: 100%;
+}
 .detailInfo-card .content .personal-info,
 .detailInfo-card .content .family-info {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 }
 .personal-info p,
 .family-info p {

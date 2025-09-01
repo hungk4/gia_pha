@@ -1,9 +1,9 @@
 /* Container bao trọn màn hình */
-.container {
+.adminLogin-container {
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: 100vh; 
+  min-height: 100vh; 
 }
 
 .side {

@@ -3,7 +3,7 @@ import trongdong from "../../../../assets/images/trongdong.png";
 function AdminLogin() {
   return (
     <>
-      <div className="container">
+      <div className="adminLogin-container">
         <div className="side">
           <div className="hero-img">
             <img src={trongdong} alt="Logo GiaphaViet"></img>
