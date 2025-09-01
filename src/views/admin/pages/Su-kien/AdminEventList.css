@@ -1,0 +1,34 @@
+/* breadcum */
+
+/* tool-start */
+.adminEventList-container .tool {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.adminEventList-container .tool .tool-left .label-select {
+  margin-right: 8px;
+  color: var(--color-dark-2);
+}
+
+.adminEventList-container .tool .tool-left .select-options {
+  padding: 8px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--color-light-3);
+  background-color: var(--color-light-1);
+  color: var(--color-dark-3);
+  font-size: 14px;
+}
+
+.adminEventList-container .tool .tool-right {
+  display: flex;
+  gap: 16px;
+}
+/* tool-end */
+
+/* table start*/
+/* Header*/
+.adminEventList-container .ant-table-thead > tr > th {
+}
+/* table end */

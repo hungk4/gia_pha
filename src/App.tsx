@@ -14,6 +14,7 @@ import AdminThuvien from "./views/admin/pages/Thu-vien/AdminThuvien";
 import AdminSukien from "./views/admin/pages/Su-kien/AdminSukien";
 import AdminLayout from "./views/admin/partials/AdminLayout";
 import AdminLogin from "./views/admin/pages/Login/AdminLogin";
+import AdminEventList from "./views/admin/pages/Su-kien/AdminEventList";
 
 function App() {
   return (
@@ -29,14 +30,15 @@ function App() {
           <Route path="/su-kien" element={<Sukien />} />
         </Route>
 
-        <Route path="/admin/login" element={<AdminLogin/>}/>
+        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout/>}>
+        <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
           <Route path="gia-pha" element={<AdminGiapha />} />{" "}
           <Route path="thu-vien" element={<AdminThuvien />} />
           <Route path="su-kien" element={<AdminSukien />} />
+          <Route path="danh-sach-su-kien" element={<AdminEventList />} />
         </Route>
 
         <Route path="*" element={<h1>404 Not Found</h1>}></Route>

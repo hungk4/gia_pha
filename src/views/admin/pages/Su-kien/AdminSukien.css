@@ -1,0 +1,32 @@
+.adminsukien-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+.adminsukien-container .title-page {
+  margin-bottom: 0;
+}
+.adminsukien-container .list {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.event-title {
+  color: var(--color-dark-3);
+}
+
+.time-line {
+  padding: 4px 8px;
+  border-radius: 4px;
+  width: fit-content;
+  background-color: var(--color-blue-light);
+  color: #000000;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

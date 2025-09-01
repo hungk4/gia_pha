@@ -8,8 +8,7 @@ const { Content } = Layout;
 
 
 const layoutStyle = {
-  overflow: "hidden",
-  height: "100vh",
+  minHeight: "100vh",
 };
 
 function AdminLayout() {
@@ -19,7 +18,7 @@ function AdminLayout() {
         <AdminHeader/>
         <Layout style={{ marginTop: 64}}>
           <AdminSider/>
-          <Content style={{padding: 32}}>
+          <Content style={{padding: 32, backgroundColor: "var(--color-light-2)"}}>
             <Outlet />
           </Content>
         </Layout>

@@ -5,11 +5,11 @@
   border: none;
 }
 
-.button-text {
-  color: var(--color-light-1);
+.button-text,
+.button-icon {
+  color: var(--color-light-1) !important;
 }
 
 .button:hover {
   cursor: pointer;
-  
 }
