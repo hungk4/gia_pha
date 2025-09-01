@@ -6,7 +6,6 @@ import AdminSider from "./Sider/AdminSider";
 
 const { Content } = Layout;
 
-
 const layoutStyle = {
   minHeight: "100vh",
 };
@@ -15,10 +14,17 @@ function AdminLayout() {
   return (
     <>
       <Layout style={layoutStyle}>
-        <AdminHeader/>
-        <Layout style={{ marginTop: 64}}>
-          <AdminSider/>
-          <Content style={{padding: 32, backgroundColor: "var(--color-light-2)"}}>
+        <AdminHeader />
+        <Layout style={{ marginTop: 64 }}>
+          <AdminSider />
+          <Content
+            style={{
+              padding: 32,
+              backgroundColor: "var(--color-light-2)",
+              position: "relative",
+              overflowY: "auto"
+            }}
+          >
             <Outlet />
           </Content>
         </Layout>

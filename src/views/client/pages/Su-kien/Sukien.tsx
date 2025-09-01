@@ -3,7 +3,6 @@ import { useState } from "react";
 import Button from "../../../../components/Button/Button";
 import Card2 from "../../../../components/Card2/Card2";
 
-
 import "./Sukien.css";
 
 function Sukien() {
@@ -62,70 +61,70 @@ function Sukien() {
               </div>
             </div>
           </div>
-        </div>
 
-        {popup && (
-          <div className="popup-overlay">
-            <div className="popup">
-              <div className="popup-header">
-                <p className="popup-title p1-b">Đăng ký nhận thông báo</p>
-                <span
-                  className="material-symbols-outlined close-btn"
-                  onClick={() => setPopup(false)}
-                >
-                  close
-                </span>
+          {popup && (
+            <div className="popup-overlay">
+              <div className="popup">
+                <div className="popup-header">
+                  <p className="popup-title p1-b">Đăng ký nhận thông báo</p>
+                  <span
+                    className="material-symbols-outlined close-btn"
+                    onClick={() => setPopup(false)}
+                  >
+                    close
+                  </span>
+                </div>
+
+                <div className="form-group p2-r">
+                  <label htmlFor="events">
+                    Nhấn chọn sự kiện (mặc định là tất cả)
+                  </label>
+                  <input
+                    id="events"
+                    type="text"
+                    readOnly
+                    value={
+                      selectedEvents.length > 0
+                        ? selectedEvents.join(", ")
+                        : "Tất cả sự kiện"
+                    }
+                    className="event-input p2-r"
+                    onClick={() => setShowCheckboxes(!showCheckboxes)}
+                  />
+                  {showCheckboxes && (
+                    <div className="checkbox-list">
+                      {events.map((event) => (
+                        <label key={event} className="checkbox-item">
+                          <input
+                            type="checkbox"
+                            checked={selectedEvents.includes(event)}
+                            onChange={() => handleCheckboxChange(event)}
+                          />
+                          <span className="checkmark"></span>
+                          {event}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="form-group p2-r">
+                  <label htmlFor="name">Họ tên</label>
+                  <input id="name" type="text" placeholder="Nhập họ tên" />
+                </div>
+
+                <div className="form-group p2-r">
+                  <label>Số điện thoại</label>
+                  <input type="text" placeholder="Nhập số điện thoại" />
+                </div>
+
+                <button type="submit" className="p2-b">
+                  Gửi
+                </button>
               </div>
-
-              <div className="form-group p2-r">
-                <label htmlFor="events">
-                  Nhấn chọn sự kiện (mặc định là tất cả)
-                </label>
-                <input
-                  id="events"
-                  type="text"
-                  readOnly
-                  value={
-                    selectedEvents.length > 0
-                      ? selectedEvents.join(", ")
-                      : "Tất cả sự kiện"
-                  }
-                  className="event-input p2-r"
-                  onClick={() => setShowCheckboxes(!showCheckboxes)}
-                />
-                {showCheckboxes && (
-                  <div className="checkbox-list">
-                    {events.map((event) => (
-                      <label key={event} className="checkbox-item">
-                        <input
-                          type="checkbox"
-                          checked={selectedEvents.includes(event)}
-                          onChange={() => handleCheckboxChange(event)}
-                        />
-                        <span className="checkmark"></span>
-                        {event}
-                      </label>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="form-group p2-r">
-                <label htmlFor="name">Họ tên</label>
-                <input id="name" type="text" placeholder="Nhập họ tên" />
-              </div>
-
-              <div className="form-group p2-r">
-                <label>Số điện thoại</label>
-                <input type="text" placeholder="Nhập số điện thoại" />
-              </div>
-
-              <button type="submit" className="p2-b">
-                Gửi
-              </button>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   );
