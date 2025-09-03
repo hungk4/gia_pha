@@ -16,6 +16,7 @@ import AdminLayout from "./views/admin/partials/AdminLayout";
 import AdminLogin from "./views/admin/pages/Login/AdminLogin";
 import AdminEventList from "./views/admin/pages/Su-kien/AdminEventList";
 import AdminEventUser from "./views/admin/pages/Su-kien/AdminEventUser";
+import AdminAlbum from "./views/admin/pages/Thu-vien/AdminAlbum";
 
 function App() {
   return (
@@ -37,7 +38,10 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
           <Route path="gia-pha" element={<AdminGiapha />} />{" "}
+
           <Route path="thu-vien" element={<AdminThuvien />} />
+          <Route path="thu-vien/album/:id" element={<AdminAlbum />} />
+
           <Route path="su-kien" element={<AdminSukien />} />
           <Route path="danh-sach-su-kien" element={<AdminEventList />} />
           <Route path="danh-sach-nguoi-nhan-thong-bao" element={<AdminEventUser/>} />

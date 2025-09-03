@@ -3,7 +3,12 @@ import "./Thuvien.css";
 import Card1 from "../../../../components/Card1/Card1";
 import { Row, Col } from "antd";
 
+import { useNavigate } from "react-router-dom";
+
+
 function Thuvien() {
+  const navigate = useNavigate();
+  
   return (
     <>
       <div className="body">
@@ -38,7 +43,9 @@ function Thuvien() {
                 md={8}
                 className="album-item"
               >
-                <Card1 title={`Img Title ${i + 1}`} />
+                <Card1 title={`Img Title ${i + 1}`} onClick={() => {
+                navigate(`/thu-vien/album`);
+              }}/>
               </Col>
             ))}
           </Row>

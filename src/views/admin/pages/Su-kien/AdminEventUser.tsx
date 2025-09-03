@@ -153,8 +153,8 @@ function AdminEventUser() {
           <div className="popup-overlay">
             <div className="popup">
               <div className="text-content">
-                <div className="headline p2-b">Xác nhận xóa</div>
-                <div className="supporting-text p2-r">Bạn có chắc chắn muốn xóa người này khỏi danh sách nhận thông báo?</div>
+                <div className="headline">Xác nhận xóa</div>
+                <div className="supporting-text">Bạn có chắc chắn muốn xóa người này khỏi danh sách nhận thông báo?</div>
               </div>
               <div className="actions">
                 <button

@@ -2,24 +2,20 @@
 import "./Card1.css";
 import bannerImg from "../../assets/images/hero_banner.jpg"; 
 
-import { useNavigate } from "react-router-dom";
+import { MouseEventHandler } from "react";
 
 // 1. Khai báo kiểu props
 interface Card1Props {
   img?: string;
   title?: string;
   id?: string | number;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-function Card1({ img, title, id }: Card1Props) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(`/thu-vien/album`);
-  };
+function Card1({ img, title, id, onClick }: Card1Props) {
 
   return (
-    <div className="card1" onClick={handleClick}>
+    <div className="card1" onClick={onClick}>
       <div className="card-media">
         {img ? <img src={img} alt="Card Media" /> : <img src={bannerImg} alt="Card Media" />}
       </div>
