@@ -1,14 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-import avatar from "../../../../assets/images/avatar.jpg"
+import avatar from "../../../../assets/images/avatar.jpg";
 
 import "./DetailInfo.css";
 
 function DetailInfo() {
   const [activeTab, setActiveTab] = useState("personal");
   const navigate = useNavigate();
+
+  const personData = {
+    hoten: "Nguyễn Mạnh Hùng",
+    gioitinh: "Nam",
+    ngaysinh: "02-09-1990",
+    hientrang: "Còn sống",
+    ngaymat: "",
+    thuongtru: "Hà Nội",
+    lienhe: "0852865816",
+    bo: "Nguyễn Văn A",
+    me: "Nguyễn Văn B",
+    honThe: ["Nguyễn Thị C"],
+    con: ["Nguyễn Văn D", "Nguyễn Văn E"],
+  };
+
   return (
     <>
       <div className="body">
@@ -47,31 +61,35 @@ function DetailInfo() {
                 <div className="personal-info p1-r">
                   <p>
                     <span>Họ tên: </span>
-                    <strong>Nguyễn Mạnh Hùng</strong>
+                    <strong>{personData.hoten}</strong>
                   </p>
                   <p>
                     <span>Giới tính: </span>
-                    <strong>Nam</strong>
+                    <strong>{personData.gioitinh}</strong>
                   </p>
                   <p>
                     <span>Ngày sinh: </span>
-                    <strong>dd/mm/yyyy</strong>
+                    <strong>{personData.ngaysinh}</strong>
                   </p>
                   <p>
                     <span>Hiện trạng: </span>
-                    <strong>Còn sống</strong>
+                    <strong>{personData.hientrang}</strong>
                   </p>
                   <p>
                     <span>Ngày mất: </span>
-                    <strong>--/--/----</strong>
+                    <strong>
+                      {personData.ngaymat
+                        ? personData.ngaymat
+                        : "--/--/----"}
+                    </strong>
                   </p>
                   <p>
                     <span>Thường trú: </span>
-                    <strong>Hà Nội</strong>
+                    <strong>{personData.thuongtru}</strong>
                   </p>
                   <p>
                     <span>Liên hệ: </span>
-                    <strong>0852865816</strong>
+                    <strong>{personData.lienhe}</strong>
                   </p>
                 </div>
               )}
@@ -81,15 +99,19 @@ function DetailInfo() {
                   <div className="family-info p1-r">
                     <p>
                       <span>Bố: </span>
-                      <strong>Nguyễn Văn A</strong>
+                      <strong>{personData.bo}</strong>
                     </p>
                     <p>
                       <span>Mẹ: </span>
-                      <strong>Nguyễn Văn B</strong>
+                      <strong>{personData.me}</strong>
+                    </p>
+                    <p>
+                      <span>Hôn thê: </span>
+                      <strong>{personData.honThe.join(", ")}</strong>
                     </p>
                     <p>
                       <span>Con cái: </span>
-                      <strong></strong>
+                      <strong>{personData.con.join(", ")}</strong>
                     </p>
                   </div>
                 </>
@@ -98,7 +120,6 @@ function DetailInfo() {
           </div>
         </div>
       </div>
-
     </>
   );
 }

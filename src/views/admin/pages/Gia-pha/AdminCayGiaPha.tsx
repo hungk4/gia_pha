@@ -41,7 +41,7 @@ function AdminCayGiaPha() {
             <Button text="Xuất gia phả" />
           </div>
         </div>
-        <FamilyTree />
+        <FamilyTree mode="admin" />
       </div>
     </div>
   );

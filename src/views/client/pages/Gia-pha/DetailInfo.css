@@ -2,7 +2,7 @@
   padding: 32px 96px;
 }
 
-.detailInfo-card {
+.detailInfo-container .detailInfo-card {
   position: relative;
   width: 700px;
   margin: 0 auto;
@@ -14,7 +14,7 @@
 }
 
 /* close btn start */
-.detailInfo-card .close-btn {
+.detailInfo-container .detailInfo-card .close-btn {
   cursor: pointer;
   position: absolute;
   top: 20px;
@@ -24,7 +24,7 @@
 /* close btn end */
 
 /* header start */
-.detailInfo-header {
+.detailInfo-container .detailInfo-header {
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -32,18 +32,18 @@
   margin-bottom: 32px;
 }
 
-.detailInfo-header .title {
+.detailInfo-container .detailInfo-header .title {
   color: var(--color-dark-1);
 }
 /* header end */
 
 /* avatar start */
-.detailInfo-card .avatar {
+.detailInfo-container .detailInfo-card .avatar {
   width: 120px;
   height: 120px;
 }
 
-.detailInfo-card .avatar img {
+.detailInfo-container .detailInfo-card .avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -52,7 +52,7 @@
 /* avatar end */
 
 /* tab start  */
-.detailInfo-tabs {
+.detailInfo-container .detailInfo-tabs {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -60,7 +60,7 @@
   margin-bottom: 32px;
 }
 
-.detailInfo-tabs button {
+.detailInfo-container .detailInfo-tabs button {
   padding: 6px 12px;
   border: none;
   border-radius: 100px;
@@ -69,7 +69,7 @@
   cursor: pointer;
 }
 
-.detailInfo-tabs button.active {
+.detailInfo-container .detailInfo-tabs button.active {
   padding: 6px 12px;
   border: none;
   border-radius: 100px;
@@ -80,25 +80,66 @@
 
 /* content start */
 
-.detailInfo-container .content {
+.detailInfo-container .detailInfo-container .content {
   width: 100%;
 }
-.detailInfo-card .content .personal-info,
-.detailInfo-card .content .family-info {
+.detailInfo-container .detailInfo-card .content .personal-info,
+.detailInfo-container .detailInfo-card .content .family-info {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 }
-.personal-info p,
-.family-info p {
+.detailInfo-container .personal-info p,
+.detailInfo-container .family-info p {
   padding: 8px 8px;
   color: var(--color-dark-2);
   border-bottom: 1px solid var(--color-light-3);
 }
 
-.personal-info p:last-child,
-.family-info p:last-child {
+.detailInfo-container .personal-info p:last-child,
+.detailInfo-container .family-info p:last-child {
   border: none;
 }
 /* content end */
+
+
+@media (max-width: 768px) {
+  .detailInfo-container .detailInfo-card {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailInfo-container {
+    padding: 16px;
+  }
+
+  .detailInfo-container .detailInfo-card {
+    padding: 16px;
+  }
+
+  .detailInfo-container .detailInfo-header {
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .detailInfo-container .detailInfo-header .title {
+    font-size: 18px;
+  }
+
+  .detailInfo-container .detailInfo-tabs {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .detailInfo-container .detailInfo-tabs button {
+    padding: 4px 8px;
+    font-size: 14px;
+  }
+
+  .detailInfo-container .detailInfo-card .avatar {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -298,11 +298,15 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
           <div className="menu-title">Hành động</div>
           <button
             onClick={() => {
-              console.log("Xem chi tiết", popup.data);
-              navigate(`/gia-pha/chi-tiet`);
+              if (mode === "admin") {
+                navigate(`/admin/gia-pha/chinh-sua`);
+              } else {
+                console.log("Xem chi tiết", popup.data);
+                navigate(`/gia-pha/chi-tiet`);
+              }
             }}
           >
-            Xem chi tiết
+            {mode === "admin" ? "Chỉnh sửa" : "Xem chi tiết"}
           </button>
           <button onClick={() => console.log("Xem đời sau")}>
             Xem đời sau
