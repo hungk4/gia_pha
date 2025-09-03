@@ -13,9 +13,65 @@
   gap: 16px;
 }
 
-.event-title {
+.adminsukien-container .event-title {
   color: var(--color-dark-3);
 }
+
+/* card event start-------------------- */
+.adminsukien-container .group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 32px;
+}
+
+.adminsukien-container .group .title {
+  color: var(--color-dark-2);
+}
+
+.adminsukien-container .group .list-event {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  position: relative;
+}
+
+.adminsukien-container .group .list-event::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  width: 0.5px;
+  height: 100%;
+  background-color: var(--color-dark-3);
+  z-index: 0;
+}
+
+.adminsukien-container .group .event {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.adminsukien-container .event .circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--color-dark-3);
+  background-color: var(--color-light-1);
+  z-index: 1; /* Đảm bảo circle nằm trên đường thẳng */
+}
+
+.adminsukien-container .event .horizontal-line {
+  width: 100px;
+  height: 1px;
+  background-color: var(--color-dark-3);
+}
+
+/* card event end-------------------- */
 
 .time-line {
   padding: 4px 8px;

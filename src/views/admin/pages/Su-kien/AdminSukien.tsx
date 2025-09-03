@@ -20,9 +20,12 @@ function AdminSukien() {
             ></Button>
           </div>
           <div className="user-info-list">
-            <Button text="Danh sách người nhận thông báo" onClick={() => {{
-              navigate("/admin/danh-sach-nguoi-nhan-thong-bao");
-            }}}></Button>
+            <Button
+              text="Danh sách người nhận thông báo"
+              onClick={() => {
+                navigate("/admin/danh-sach-nguoi-nhan-thong-bao");
+              }}
+            ></Button>
           </div>
         </div>
 
@@ -47,15 +50,11 @@ function AdminSukien() {
               <div className="horizontal-line"></div>
               <Card2 />
             </div>
-          </div>
-          <div className="list-event">
             <div className="event">
               <div className="circle"></div>
               <div className="horizontal-line"></div>
               <Card2 />
             </div>
-          </div>
-          <div className="list-event">
             <div className="event">
               <div className="circle"></div>
               <div className="horizontal-line"></div>
