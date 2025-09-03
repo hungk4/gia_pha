@@ -17,6 +17,7 @@ import AdminLogin from "./views/admin/pages/Login/AdminLogin";
 import AdminEventList from "./views/admin/pages/Su-kien/AdminEventList";
 import AdminEventUser from "./views/admin/pages/Su-kien/AdminEventUser";
 import AdminAlbum from "./views/admin/pages/Thu-vien/AdminAlbum";
+import AdminGiaphaUserList from "./views/admin/pages/Gia-pha/AdminGiaphaUserList";
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
           <Route path="gia-pha" element={<AdminGiapha />} />{" "}
+          <Route path="gia-pha/cay-gia-pha" element={<div>Cây gia phả</div>} />
+          <Route path="gia-pha/danh-sach-thanh-vien" element={<AdminGiaphaUserList/>} />
 
           <Route path="thu-vien" element={<AdminThuvien />} />
           <Route path="thu-vien/album/:id" element={<AdminAlbum />} />

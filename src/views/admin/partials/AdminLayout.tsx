@@ -19,6 +19,7 @@ function AdminLayout() {
           <AdminSider />
           <Content
             style={{
+              marginLeft: "15%",
               padding: 32,
               backgroundColor: "var(--color-light-2)",
               position: "relative",

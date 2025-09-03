@@ -1,7 +1,5 @@
 .admin-sider {
-  position: relative;
   background: transparent;
-  z-index: 0;
 }
 
 .admin-sider::before {

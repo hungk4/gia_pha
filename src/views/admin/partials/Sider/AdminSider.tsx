@@ -6,7 +6,17 @@ const { Sider } = Layout;
 
 function AdminSider() {
   return (
-    <Sider width="15%" className="admin-sider">
+    <Sider
+      width="15%"
+      className="admin-sider"
+      style={{
+        position: "fixed",
+        top: 64,
+        left: 0,
+        height: "calc(100vh - 64px)",
+        overflow: "auto",
+      }}
+    >
       <Menu
         className="admin-sider-menu"
         mode="inline"
