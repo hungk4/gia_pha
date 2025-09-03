@@ -20,7 +20,9 @@ function AdminSukien() {
             ></Button>
           </div>
           <div className="user-info-list">
-            <Button text="Danh sách người nhận thông báo"></Button>
+            <Button text="Danh sách người nhận thông báo" onClick={() => {{
+              navigate("/admin/danh-sach-nguoi-nhan-thong-bao");
+            }}}></Button>
           </div>
         </div>
 
