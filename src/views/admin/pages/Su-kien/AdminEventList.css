@@ -25,6 +25,18 @@
 }
 /* tool-end */
 
+/* table start */
+.adminEventList-container .btn-delete {
+  color: var(--color-blue);
+  cursor: pointer;
+}
+
+.adminEventList-container .btn-edit {
+  color: var(--color-orange);
+  cursor: pointer;
+}
+/* table end */
+
 /* popup start */
 .adminEventList-container .popup-overlay {
   position: absolute;

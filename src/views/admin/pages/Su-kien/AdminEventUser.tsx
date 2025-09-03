@@ -3,6 +3,7 @@ import "./AdminEventUser.css";
 import { Breadcrumb, Space, Table } from "antd";
 import Search from "../../../../components/Search/Search";
 import Column from "antd/es/table/Column";
+import { useState } from "react";
 
 interface DataType {
   key: React.Key;
@@ -37,6 +38,8 @@ const data: DataType[] = [
 ];
 
 function AdminEventUser() {
+  const [popup, setPopup] = useState<boolean>(false);
+
   return (
     <div className="adminEventUser-container">
       <Breadcrumb
@@ -118,16 +121,23 @@ function AdminEventUser() {
           <Column
             title="Thao tác"
             key="action"
+            align="center"
             onHeaderCell={() => ({ className: "p2-b" })}
             onCell={() => ({ className: "p2-r" })}
             render={(_: any, record: DataType) => (
               <Space size="middle">
-                <span className="material-symbols-outlined">delete</span>
+                <span
+                  className="material-symbols-outlined btn-delete"
+                  onClick={(e: React.MouseEvent) => {
+                    setPopup(true);
+                  }}
+                >
+                  delete
+                </span>
               </Space>
             )}
           />
         </Table>
-
 
         <div className="pagination">
           <button className="p2-r inactive">Previous</button>
@@ -138,6 +148,31 @@ function AdminEventUser() {
           <button className="p2-r">10</button>
           <button className="p2-r">Next</button>
         </div>
+
+        {popup && (
+          <div className="popup-overlay">
+            <div className="popup">
+              <div className="text-content">
+                <div className="headline p2-b">Xác nhận xóa</div>
+                <div className="supporting-text p2-r">Bạn có chắc chắn muốn xóa người này khỏi danh sách nhận thông báo?</div>
+              </div>
+              <div className="actions">
+                <button
+                  className="btn-cancel p2-r"
+                  onClick={() => setPopup(false)}
+                >
+                  Xóa
+                </button>
+                <button
+                  className="btn-confirm p2-r"
+                  onClick={() => setPopup(false)}
+                >
+                  Hủy
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -18,3 +18,60 @@
   color: var(--color-dark-3);
   font-size: 14px;
 }
+
+.adminEventUser-container .btn-delete {
+  color: var(--color-blue);
+  cursor: pointer;
+}
+
+/* popup start */
+.adminEventUser-container .popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  z-index: 10; 
+}
+
+.adminEventUser-container .popup {
+  position: relative;
+  top: 200px;
+  width: 312px;
+  height: fit-content;
+  background-color: var(--color-light-2);
+  border-radius: 8px;
+}
+
+.adminEventUser-container .popup .text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 24px 0 24px;
+}
+
+.adminEventUser-container .popup .text-content .headline {
+  color: var(--color-dark-1)
+}
+
+.adminEventUser-container .popup .text-content .supporting-text {
+  color: var(--color-dark-2);
+}
+
+
+.adminEventUser-container .popup .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 24px;
+}
+.adminEventUser-container .popup button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-dark-1);
+}
+/* popup end */

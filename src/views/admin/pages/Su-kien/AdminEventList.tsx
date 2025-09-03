@@ -200,8 +200,8 @@ function AdminEventList() {
             onCell={() => ({ className: "p2-r" })}
             render={(_: any, record: DataType) => (
               <Space size="middle">
-                <span className="material-symbols-outlined">edit</span>
-                <span className="material-symbols-outlined">delete</span>
+                <span className="material-symbols-outlined btn-edit">edit</span>
+                <span className="material-symbols-outlined btn-delete">delete</span>
               </Space>
             )}
           />
