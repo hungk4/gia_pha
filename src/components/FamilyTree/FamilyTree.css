@@ -1,4 +1,5 @@
 .family-tree-container {
+  position: relative;
   width: 100%;
   height: 100%;
   background-image: url("../../assets/images/family-tree-background.jpg");
@@ -102,6 +103,7 @@
 
 
 .family-tree-container .popup-menu {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;

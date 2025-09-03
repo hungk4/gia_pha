@@ -45,7 +45,7 @@ const familyData: Person = {
   ],
 };
 
-function FamilyTree() {
+function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   interface PopupData {
@@ -63,7 +63,7 @@ function FamilyTree() {
 
   useEffect(() => {
     // Xét kích thước của SVG
-    const svgElement = svgRef.current;
+    // const svgElement = svgRef.current;
     const width =
       svgRef.current?.parentElement?.getBoundingClientRect().width || 0;
     const height = 1000;
@@ -192,9 +192,15 @@ function FamilyTree() {
       if (toolBtn) {
         d3.select(toolBtn).on("click", (event) => {
           event.stopPropagation();
+
+          const container = document.querySelector(
+            ".family-tree-container"
+          ) as HTMLElement;
+          const rect = container.getBoundingClientRect();
+
           setPopup({
-            x: event.pageX,
-            y: event.pageY,
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top,
             data: d.data,
           });
         });
@@ -244,9 +250,15 @@ function FamilyTree() {
           if (toolBtn) {
             d3.select(toolBtn).on("click", (event) => {
               event.stopPropagation();
+
+              const container = document.querySelector(
+                ".family-tree-container"
+              ) as HTMLElement;
+              const rect = container.getBoundingClientRect();
+
               setPopup({
-                x: event.pageX,
-                y: event.pageY,
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top,
                 data: c,
               });
             });

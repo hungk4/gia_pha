@@ -18,6 +18,8 @@ import AdminEventList from "./views/admin/pages/Su-kien/AdminEventList";
 import AdminEventUser from "./views/admin/pages/Su-kien/AdminEventUser";
 import AdminAlbum from "./views/admin/pages/Thu-vien/AdminAlbum";
 import AdminGiaphaUserList from "./views/admin/pages/Gia-pha/AdminGiaphaUserList";
+import AdminCayGiaPha from "./views/admin/pages/Gia-pha/AdminCayGiaPha";
+
 
 function App() {
   return (
@@ -38,8 +40,9 @@ function App() {
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
+
           <Route path="gia-pha" element={<AdminGiapha />} />{" "}
-          <Route path="gia-pha/cay-gia-pha" element={<div>Cây gia phả</div>} />
+          <Route path="gia-pha/cay-gia-pha" element={<AdminCayGiaPha/>} />
           <Route path="gia-pha/danh-sach-thanh-vien" element={<AdminGiaphaUserList/>} />
 
           <Route path="thu-vien" element={<AdminThuvien />} />

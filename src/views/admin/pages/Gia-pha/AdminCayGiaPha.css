@@ -1,0 +1,14 @@
+/* tool-start */
+.adminCayGiaPha-container .tool {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.adminCayGiaPha-container .tool-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+/* tool-end */
