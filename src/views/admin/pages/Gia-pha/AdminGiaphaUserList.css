@@ -1,8 +1,13 @@
 .adminGiaphasUserList-container .tool {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 24px;
+}
+
+.adminGiaphasUserList-container .tool .tool-left {
+  margin-bottom: 8px;
 }
 
 .adminGiaphasUserList-container .tool .tool-left .label-select {

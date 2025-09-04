@@ -1,4 +1,3 @@
-
 import { Breadcrumb, Space, Table } from "antd";
 import Column from "antd/es/table/Column";
 
@@ -57,7 +56,6 @@ const data: DataType[] = [
   },
 ];
 
-
 function AdminGiaphaUserList() {
   return (
     <div className="adminGiaphasUserList-container">
@@ -107,7 +105,12 @@ function AdminGiaphaUserList() {
           </div>
         </div>
 
-        <Table<DataType> dataSource={data} rowKey="key" pagination={false}>
+        <Table<DataType>
+          dataSource={data}
+          rowKey="key"
+          pagination={false}
+          scroll={{ x: "max-content" }}
+        >
           <Column
             title="STT"
             dataIndex="stt"
