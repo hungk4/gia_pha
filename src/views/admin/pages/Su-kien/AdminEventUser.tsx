@@ -88,7 +88,12 @@ function AdminEventUser() {
           </div>
         </div>
 
-        <Table<DataType> dataSource={data} rowKey="key" pagination={false}>
+        <Table<DataType>
+          dataSource={data}
+          rowKey="key"
+          pagination={false}
+          scroll={{ x: "max-content" }}
+        >
           <Column
             title="STT"
             dataIndex="stt"
@@ -154,7 +159,10 @@ function AdminEventUser() {
             <div className="popup">
               <div className="text-content">
                 <div className="headline">Xác nhận xóa</div>
-                <div className="supporting-text">Bạn có chắc chắn muốn xóa người này khỏi danh sách nhận thông báo?</div>
+                <div className="supporting-text">
+                  Bạn có chắc chắn muốn xóa người này khỏi danh sách nhận thông
+                  báo?
+                </div>
               </div>
               <div className="actions">
                 <button

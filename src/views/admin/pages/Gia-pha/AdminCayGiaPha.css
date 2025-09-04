@@ -4,11 +4,14 @@
   justify-content: space-between;
   margin-top: 16px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .adminCayGiaPha-container .tool-left {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
 }
 /* tool-end */

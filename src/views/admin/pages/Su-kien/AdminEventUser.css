@@ -3,8 +3,12 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
+.adminEventUser-container .tool .tool-left {
+  margin-bottom: 8px;;
+}
 .adminEventUser-container .tool .tool-left .label-select {
   margin-right: 8px;
   color: var(--color-dark-2);

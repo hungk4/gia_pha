@@ -136,7 +136,12 @@ function AdminEventList() {
           </div>
         </div>
 
-        <Table<DataType> dataSource={data} rowKey="key" pagination={false}>
+        <Table<DataType>
+          dataSource={data}
+          rowKey="key"
+          pagination={false}
+          scroll={{ x: "max-content" }}
+        >
           <Column
             title="STT"
             dataIndex="stt"
@@ -201,7 +206,9 @@ function AdminEventList() {
             render={(_: any, record: DataType) => (
               <Space size="middle">
                 <span className="material-symbols-outlined btn-edit">edit</span>
-                <span className="material-symbols-outlined btn-delete">delete</span>
+                <span className="material-symbols-outlined btn-delete">
+                  delete
+                </span>
               </Space>
             )}
           />

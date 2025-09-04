@@ -2,6 +2,7 @@
 .adminEventList-container .tool {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-bottom: 24px;
 }
 
@@ -20,8 +21,10 @@
 }
 
 .adminEventList-container .tool .tool-right {
+  margin-top: 8px;
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 /* tool-end */
 

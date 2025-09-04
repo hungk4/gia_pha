@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .adminThuvien-container .tool .tool-left .label-select {
@@ -20,8 +21,10 @@
 }
 
 .adminThuvien-container .tool .tool-right {
+  margin-top: 8px;
   display: flex;
-  gap: 16px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 /* tool-end */
 

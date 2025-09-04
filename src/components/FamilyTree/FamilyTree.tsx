@@ -8,6 +8,7 @@ import "./FamilyTree.css";
 import rongTrai from "../../assets/images/rongTrai.png";
 import rongPhai from "../../assets/images/rongPhai.png";
 import board from "../../assets/images/cuonthu.png";
+import avatar from "../../assets/images/avatar.jpg";
 
 interface Person {
   name: string;
@@ -182,7 +183,9 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
               <span class="material-symbols-outlined">notes</span>
             </button>
           </div>
-          <div class="avatar"></div>
+          <div class="avatar">
+            <img src="${avatar}" alt="avatar" />
+          </div>
           <div class="name p2-b">${d.data.name}</div>
           <div class="year p2-b">${d.data.year || "19xx"}</div>
         `);
@@ -240,7 +243,9 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
                   <span class="material-symbols-outlined">notes</span>
                 </button>
               </div>
-              <div class="avatar"></div>
+              <div class="avatar">
+                <img src="${avatar}" alt="avatar" />
+              </div>
               <div class="name p2-b">${c.name}</div>
               <div class="year p2-b">${c.year || "19xx"}</div>
             `);
@@ -307,7 +312,7 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
               Thêm hôn phu
             </button>
           )}
-          
+
           <button
             onClick={() => {
               if (mode === "admin") {
@@ -320,7 +325,7 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
           >
             {mode === "admin" ? "Chỉnh sửa" : "Xem chi tiết"}
           </button>
-          
+
           <button onClick={() => console.log("Xem đời sau")}>
             Xem đời sau
           </button>

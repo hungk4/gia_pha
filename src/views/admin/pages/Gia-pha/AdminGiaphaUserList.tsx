@@ -1,8 +1,9 @@
-import Search from "antd/es/transfer/search";
+
 import { Breadcrumb, Space, Table } from "antd";
 import Column from "antd/es/table/Column";
 
 import "./AdminGiaphaUserList.css";
+import Search from "../../../../components/Search/Search";
 
 interface DataType {
   key: React.Key;
