@@ -3,8 +3,11 @@ import { Breadcrumb } from "antd";
 import Search from "../../../../components/Search/Search";
 import Button from "../../../../components/Button/Button";
 import FamilyTree from "../../../../components/FamilyTree/FamilyTree";
+import { useOutletContext } from "react-router-dom";
+
 
 function AdminCayGiaPha() {
+  const { collapsed } = useOutletContext<{ collapsed: boolean }>();
   return (
     <div className="adminCayGiaPha-container">
       <Breadcrumb
@@ -41,7 +44,7 @@ function AdminCayGiaPha() {
             <Button text="Xuất gia phả" />
           </div>
         </div>
-        <FamilyTree mode="admin" />
+        <FamilyTree mode="admin" collapsed={collapsed} />
       </div>
     </div>
   );

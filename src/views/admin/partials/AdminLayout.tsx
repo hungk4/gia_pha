@@ -1,3 +1,5 @@
+import "./AdminLayout.css";
+
 import React, { useState } from "react";
 import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
@@ -5,6 +7,8 @@ import AdminHeader from "./Header/AdminHeader";
 import AdminSider from "./Sider/AdminSider";
 
 const { Content } = Layout;
+
+
 
 const layoutStyle = {
   minHeight: "100vh",
@@ -44,6 +48,7 @@ function AdminLayout() {
           </div>
 
           <Content
+            className="admin-content"
             style={{
               marginLeft: collapsed ? 0 : 240,
               padding: 32,
@@ -53,7 +58,7 @@ function AdminLayout() {
               transition: "all 0.2s",
             }}
           >
-            <Outlet />
+            <Outlet context={{collapsed}}/>
           </Content>
         </Layout>
       </Layout>

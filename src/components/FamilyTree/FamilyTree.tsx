@@ -46,7 +46,12 @@ const familyData: Person = {
   ],
 };
 
-function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
+interface FamilyTreeProps {
+  mode?: "admin" | "client";
+  collapsed?: boolean;
+}
+
+function FamilyTree({ mode = "client", collapsed }: FamilyTreeProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   interface PopupData {
@@ -271,7 +276,7 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
         });
       }
     });
-  }, []);
+  }, [collapsed]);
 
   return (
     <div className="family-tree-container">
