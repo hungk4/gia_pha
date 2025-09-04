@@ -303,7 +303,7 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
           )}
 
           {mode === "admin" && (
-            <button onClick={() => console.log("Thêm hôn phu")}>
+            <button onClick={() => navigate(`/admin/gia-pha/them-hon-phu`)}>
               Thêm hôn phu
             </button>
           )}
