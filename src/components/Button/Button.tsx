@@ -5,11 +5,15 @@ interface ButtonProps {
   text: string;
   icon?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
-function Button({ text, icon, onClick }: ButtonProps) {
+function Button({ text, icon, onClick, className }: ButtonProps) {
   return (
-    <button className="button" onClick={onClick}>
+    <button
+      className={`button ${className ? className : ""}`}
+      onClick={onClick}
+    >
       {icon && (
         <span
           className="material-symbols-outlined button-icon"

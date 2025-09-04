@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import avatar from "../../../../assets/images/avatar.jpg";
 
 import "./AdminDetailInfo.css";
+import Button from "../../../../components/Button/Button";
 
 function AdminDetailInfo() {
   const [activeTab, setActiveTab] = useState("personal");
@@ -64,17 +65,18 @@ function AdminDetailInfo() {
         <div className="content">
           {activeTab === "personal" && (
             <div className="personal-info p1-r">
-              <label>
-                Họ tên:
+              <div className="group">
+                <label>Họ tên:</label>
                 <input
                   type="text"
                   name="hoten"
                   value={formData.hoten}
                   onChange={handleChange}
                 />
-              </label>
-              <label>
-                Giới tính:
+              </div>
+
+              <div className="group">
+                <label>Giới tính:</label>
                 <select
                   name="gioitinh"
                   value={formData.gioitinh}
@@ -83,18 +85,20 @@ function AdminDetailInfo() {
                   <option value="Nam">Nam</option>
                   <option value="Nữ">Nữ</option>
                 </select>
-              </label>
-              <label>
-                Ngày sinh:
+              </div>
+
+              <div className="group">
+                <label>Ngày sinh:</label>
                 <input
                   type="date"
                   name="ngaysinh"
                   value={formData.ngaysinh}
                   onChange={handleChange}
                 />
-              </label>
-              <label>
-                Hiện trạng:
+              </div>
+
+              <div className="group">
+                <label>Hiện trạng:</label>
                 <select
                   name="hientrang"
                   value={formData.hientrang}
@@ -103,9 +107,10 @@ function AdminDetailInfo() {
                   <option value="Còn sống">Còn sống</option>
                   <option value="Đã mất">Đã mất</option>
                 </select>
-              </label>
-              <label>
-                Ngày mất:
+              </div>
+
+              <div className="group">
+                <label>Ngày mất:</label>
                 <input
                   type="date"
                   name="ngaymat"
@@ -113,32 +118,34 @@ function AdminDetailInfo() {
                   onChange={handleChange}
                   disabled={formData.hientrang === "Còn sống"}
                 />
-              </label>
-              <label>
-                Thường trú:
+              </div>
+
+              <div className="group">
+                <label>Thường trú:</label>
                 <input
                   type="text"
                   name="thuongtru"
                   value={formData.thuongtru}
                   onChange={handleChange}
                 />
-              </label>
-              <label>
-                Liên hệ:
+              </div>
+
+              <div className="group">
+                <label>Liên hệ:</label>
                 <input
                   type="tel"
                   name="lienhe"
                   value={formData.lienhe}
                   onChange={handleChange}
                 />
-              </label>
+              </div>
             </div>
           )}
 
           {activeTab === "family" && (
             <div className="family-info p1-r">
-              <label>
-                Bố:
+              <div className="group">
+                <label>Bố:</label>
                 <input
                   type="text"
                   name="bo"
@@ -146,9 +153,10 @@ function AdminDetailInfo() {
                   onChange={handleChange}
                   disabled
                 />
-              </label>
-              <label>
-                Mẹ:
+              </div>
+
+              <div className="group">
+                <label>Mẹ:</label>
                 <input
                   type="text"
                   name="me"
@@ -156,10 +164,12 @@ function AdminDetailInfo() {
                   onChange={handleChange}
                   disabled
                 />
-              </label>
+              </div>
             </div>
           )}
         </div>
+
+        <Button text="Lưu thay đổi" className="btn-save"/>
       </div>
     </div>
   );
