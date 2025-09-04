@@ -296,6 +296,18 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
             close
           </span>
           <div className="menu-title">Hành động</div>
+          {mode === "admin" && (
+            <button onClick={() => console.log("con")}>
+              Thêm con
+            </button>
+          )}
+
+          {mode === "admin" && (
+            <button onClick={() => console.log("Thêm hôn phu")}>
+              Thêm hôn phu
+            </button>
+          )}
+          
           <button
             onClick={() => {
               if (mode === "admin") {
@@ -308,10 +320,15 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
           >
             {mode === "admin" ? "Chỉnh sửa" : "Xem chi tiết"}
           </button>
+          
           <button onClick={() => console.log("Xem đời sau")}>
             Xem đời sau
           </button>
           <button onClick={() => console.log("Trở về gốc")}>Trở về gốc</button>
+
+          {mode === "admin" && (
+            <button onClick={() => console.log("Xóa")}>Xóa</button>
+          )}
         </div>
       )}
     </div>
