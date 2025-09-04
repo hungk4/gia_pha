@@ -23,7 +23,6 @@ header .container .logo {
 }
 
 
-
 .user {
   display: flex;
   justify-content: center;
@@ -39,4 +38,10 @@ header .container .logo {
 
 .user .name {
   color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  header .user .name {
+    display: none;
+  }
 }

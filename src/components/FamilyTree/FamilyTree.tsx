@@ -297,7 +297,7 @@ function FamilyTree({ mode = "client" }: { mode?: "admin" | "client" }) {
           </span>
           <div className="menu-title">Hành động</div>
           {mode === "admin" && (
-            <button onClick={() => console.log("con")}>
+            <button onClick={() => navigate(`/admin/gia-pha/them-con`)}>
               Thêm con
             </button>
           )}

@@ -4,10 +4,16 @@ import "./AdminSider.css";
 
 const { Sider } = Layout;
 
-function AdminSider() {
+interface AdminSiderProps {
+  collapsed: boolean;
+  setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function AdminSider({ collapsed, setCollapsed }: AdminSiderProps) {
   return (
     <Sider
-      width="15%"
+      width={240}
+      collapsedWidth={0}
       className="admin-sider"
       style={{
         position: "fixed",
@@ -16,6 +22,18 @@ function AdminSider() {
         height: "calc(100vh - 64px)",
         overflow: "auto",
       }}
+      collapsible
+      collapsed={collapsed}
+      onCollapse={(value) => setCollapsed(value)}
+      breakpoint="lg"
+      onBreakpoint={(broken) => {
+        if (broken) {
+          setCollapsed(true);
+        } else {
+          setCollapsed(false);
+        }
+      }}
+      trigger={null}
     >
       <Menu
         className="admin-sider-menu"

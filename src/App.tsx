@@ -20,6 +20,7 @@ import AdminAlbum from "./views/admin/pages/Thu-vien/AdminAlbum";
 import AdminGiaphaUserList from "./views/admin/pages/Gia-pha/AdminGiaphaUserList";
 import AdminCayGiaPha from "./views/admin/pages/Gia-pha/AdminCayGiaPha";
 import AdminDetailInfo from "./views/admin/pages/Gia-pha/AdminDetailInfo";
+import AdminThemCon from "./views/admin/pages/Gia-pha/AdminThemCon";
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path="gia-pha/cay-gia-pha" element={<AdminCayGiaPha/>} />
           <Route path="gia-pha/danh-sach-thanh-vien" element={<AdminGiaphaUserList/>} />
           <Route path="gia-pha/chinh-sua" element={<AdminDetailInfo/>} />
+          <Route path="gia-pha/them-con" element={<AdminThemCon/>} />
 
           <Route path="thu-vien" element={<AdminThuvien />} />
           <Route path="thu-vien/album/:id" element={<AdminAlbum />} />

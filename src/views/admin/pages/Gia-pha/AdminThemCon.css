@@ -1,0 +1,125 @@
+.adminThemCon-container .detailInfo-card {
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  border: 1px solid var(--color-light-3);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-light-1);
+  border-radius: 8px;
+}
+
+/* close btn start */
+.adminThemCon-container .detailInfo-card .close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+}
+/* close btn end */
+
+/* header start */
+.adminThemCon-container .detailInfo-header {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.adminThemCon-container .detailInfo-header .title {
+  color: var(--color-dark-1);
+}
+/* header end */
+
+/* avatar start */
+.adminThemCon-container .detailInfo-card .avatar {
+  width: 120px;
+  height: 120px;
+}
+
+.adminThemCon-container .detailInfo-card .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+/* avatar end */
+
+/* tab start ------------------ */
+.adminThemCon-container .detailInfo-tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.adminThemCon-container .detailInfo-tabs button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 100px;
+  background-color: var(--color-light-2);
+  color: var(--color-dark-2);
+  cursor: pointer;
+}
+.adminThemCon-container .detailInfo-tabs button.active {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 100px;
+  background-color: var(--color-primary);
+  color: var(--color-light-1);
+}
+/* tab end ------------------*/
+
+/* content start */
+.adminThemCon-container .content {
+  width: 100%;
+}
+.adminThemCon-container .detailInfo-card .content .personal-info,
+.adminThemCon-container .detailInfo-card .content .family-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+.adminThemCon-container .personal-info .group,
+.adminThemCon-container .family-info .group {
+  display: flex;
+  flex-direction: row;
+  padding: 8px 8px;
+  color: var(--color-dark-2);
+  border-bottom: 1px solid var(--color-light-3);
+}
+
+.adminThemCon-container .personal-info .group:last-child,
+.adminThemCon-container .family-info .group:last-child {
+  border: none;
+}
+
+.adminThemCon-container .personal-info .group label,
+.adminThemCon-container .family-info .group label {
+  min-width: 100px;
+}
+
+.adminThemCon-container .personal-info .group input,
+.adminThemCon-container .personal-info .group select,
+.adminThemCon-container .family-info .group input,
+.adminThemCon-container .family-info .group select {
+  padding: 6px 8px;
+  border: 1px solid var(--color-light-3);
+  border-radius: 4px;
+  outline: none;
+  color: var(--color-dark-1);
+}
+/* content end ---------------*/
+
+/* button submit start------------- */
+.adminThemCon-container .btn-save {
+  margin: 16px auto 0;
+  display: block;
+}
+.adminThemCon-container .btn-save:hover {
+  background-color: var(--color-primary-dark);
+}
+/* button submit end------------- */
