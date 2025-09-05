@@ -51,7 +51,7 @@ interface FamilyTreeProps {
   collapsed?: boolean;
 }
 
-function FamilyTree({ mode = "client", collapsed }: FamilyTreeProps) {
+function FamilyTree({ mode = "client" }: FamilyTreeProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   interface PopupData {
@@ -68,121 +68,125 @@ function FamilyTree({ mode = "client", collapsed }: FamilyTreeProps) {
   }
 
   useEffect(() => {
-    // Xét kích thước của SVG
-    // const svgElement = svgRef.current;
-    const width =
-      svgRef.current?.parentElement?.getBoundingClientRect().width || 0;
-    const height = 1000;
+    const container = svgRef.current?.parentElement;
+    if (!container) return;
 
-    // Kích thước của hình chữ nhật node
-    const rectWidth = 150;
-    const rectHeight = 188;
+    const renderTree = () => {
+      // Xét kích thước của SVG
+      // const svgElement = svgRef.current;
+      const width =
+        svgRef.current?.parentElement?.getBoundingClientRect().width || 0;
+      const height = 1000;
 
-    // Dùng d3.hierarchy
-    const root = d3.hierarchy<Person>(familyData);
+      // Kích thước của hình chữ nhật node
+      const rectWidth = 150;
+      const rectHeight = 188;
 
-    // Tao layout tree
-    const treeLayout = d3
-      .tree<Person>()
-      .nodeSize([190, 268]) // 190 = 150 + 40, 40 là gap 2 node, 268 = 188 + 80, 80 là gap giữa parent và child
-      .separation((a, b) => {
-        // ép kiểu để TypeScript biết data có kiểu Person.
-        const nodeA = a as d3.HierarchyNode<Person>;
-        const nodeB = b as d3.HierarchyNode<Person>;
+      // Dùng d3.hierarchy
+      const root = d3.hierarchy<Person>(familyData);
 
-        const widthA =
-          rectWidth +
-          (nodeA.data.couple ? nodeA.data.couple.length * rectWidth : 0); // width thực tế của node a nếu có thêm couple
-        const widthB =
-          rectWidth +
-          (nodeB.data.couple ? nodeB.data.couple.length * rectWidth : 0); // width thực tế của node b nếu có thêm couple
-        return (
-          ((a.parent === b.parent ? 1 : 1.5) * Math.max(widthA, widthB)) /
-          rectWidth // khoảng cách giữa các node cùng cha là 1.5 lần chiều rộng lớn nhất của chúng * thêm width thực tế của 1 node nếu có thêm couple / rectWidth để lấy tỉ lệ
-        );
-      });
-    treeLayout(root);
+      // Tao layout tree
+      const treeLayout = d3
+        .tree<Person>()
+        .nodeSize([190, 268]) // 190 = 150 + 40, 40 là gap 2 node, 268 = 188 + 80, 80 là gap giữa parent và child
+        .separation((a, b) => {
+          // ép kiểu để TypeScript biết data có kiểu Person.
+          const nodeA = a as d3.HierarchyNode<Person>;
+          const nodeB = b as d3.HierarchyNode<Person>;
 
-    const svg = d3
-      .select<SVGSVGElement, unknown>(svgRef.current!)
-      .attr("width", width)
-      .attr("height", height);
-    svg.selectAll("*").remove();
+          const widthA =
+            rectWidth +
+            (nodeA.data.couple ? nodeA.data.couple.length * rectWidth : 0); // width thực tế của node a nếu có thêm couple
+          const widthB =
+            rectWidth +
+            (nodeB.data.couple ? nodeB.data.couple.length * rectWidth : 0); // width thực tế của node b nếu có thêm couple
+          return (
+            ((a.parent === b.parent ? 1 : 1.5) * Math.max(widthA, widthB)) /
+            rectWidth // khoảng cách giữa các node cùng cha là 1.5 lần chiều rộng lớn nhất của chúng * thêm width thực tế của 1 node nếu có thêm couple / rectWidth để lấy tỉ lệ
+          );
+        });
+      treeLayout(root);
 
-    // Vị trí ban đầu của cây để cây nằm giữa khung
-    const initialX = width / 2 - rectWidth / 2;
-    const initialY = 150;
+      const svg = d3
+        .select<SVGSVGElement, unknown>(svgRef.current!)
+        .attr("width", width)
+        .attr("height", height);
+      svg.selectAll("*").remove();
 
-    const g = svg
-      .append("g")
-      .attr("transform", `translate(${initialX}, ${initialY})`);
+      // Vị trí ban đầu của cây để cây nằm giữa khung
+      const initialX = width / 2 - rectWidth / 2;
+      const initialY = 150;
 
-    // Thiết lập zoom
-    // 1. Tạo zoom behavior
-    const myZoom = d3.zoom<SVGSVGElement, unknown>().on("zoom", (e) => {
-      g.attr("transform", e.transform);
-    });
-
-    // 2. Gọi zoom vào svg
-    svg.call(myZoom);
-
-    // 3. Áp dụng transform ban đầu để cây nằm giữa
-    const initialTransform = d3.zoomIdentity
-      .translate(initialX, initialY)
-      .scale(1);
-    svg.call(myZoom.transform, initialTransform);
-
-    // Vẽ link
-    g.selectAll(".link")
-      .data(root.links())
-      .enter()
-      .append("line")
-      .attr("class", "link")
-      .attr("stroke", "#555")
-      .attr("stroke-width", 2)
-      .attr("x1", (d) => d.source.x!) // dấu ! để Typescript hiểu giá trị chắc chắn 0 undefined
-      .attr("y1", (d) => d.source.y! + rectHeight / 2)
-      .attr("x2", (d) => d.target.x!)
-      .attr("y2", (d) => d.target.y! - rectHeight / 2);
-
-    // Vẽ node + couple
-    const nodes = g
-      .selectAll(".node-group")
-      .data(root.descendants())
-      .enter()
-      .append("g")
-      .attr("class", "node-group")
-      .attr("transform", (d) => `translate(${d.x},${d.y})`);
-
-    nodes.each(function (d) {
-      const group = d3.select(this);
-
-      // Vẽ node chính
-      const mainNode = group
+      const g = svg
         .append("g")
-        .attr("class", `node ${d.data.gender}`)
-        .attr("transform", `translate(0,0)`);
+        .attr("transform", `translate(${initialX}, ${initialY})`);
 
-      mainNode
-        .append("rect")
-        .attr("x", -rectWidth / 2)
-        .attr("y", -rectHeight / 2)
-        .attr("width", rectWidth)
-        .attr("height", rectHeight)
-        .attr("fill", "#ffffff")
-        .attr("stroke", d.data.gender === "male" ? "#81B1EC" : "#EEC94A")
+      // Thiết lập zoom
+      // 1. Tạo zoom behavior
+      const myZoom = d3.zoom<SVGSVGElement, unknown>().on("zoom", (e) => {
+        g.attr("transform", e.transform);
+      });
+
+      // 2. Gọi zoom vào svg
+      svg.call(myZoom);
+
+      // 3. Áp dụng transform ban đầu để cây nằm giữa
+      const initialTransform = d3.zoomIdentity
+        .translate(initialX, initialY)
+        .scale(1);
+      svg.call(myZoom.transform, initialTransform);
+
+      // Vẽ link
+      g.selectAll(".link")
+        .data(root.links())
+        .enter()
+        .append("line")
+        .attr("class", "link")
+        .attr("stroke", "#555")
         .attr("stroke-width", 2)
-        .attr("rx", 8)
-        .attr("ry", 8);
+        .attr("x1", (d) => d.source.x!) // dấu ! để Typescript hiểu giá trị chắc chắn 0 undefined
+        .attr("y1", (d) => d.source.y! + rectHeight / 2)
+        .attr("x2", (d) => d.target.x!)
+        .attr("y2", (d) => d.target.y! - rectHeight / 2);
 
-      mainNode
-        .append("foreignObject")
-        .attr("x", -rectWidth / 2)
-        .attr("y", -rectHeight / 2)
-        .attr("width", rectWidth)
-        .attr("height", rectHeight)
-        .append("xhtml:div")
-        .attr("class", "node-content").html(`
+      // Vẽ node + couple
+      const nodes = g
+        .selectAll(".node-group")
+        .data(root.descendants())
+        .enter()
+        .append("g")
+        .attr("class", "node-group")
+        .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+      nodes.each(function (d) {
+        const group = d3.select(this);
+
+        // Vẽ node chính
+        const mainNode = group
+          .append("g")
+          .attr("class", `node ${d.data.gender}`)
+          .attr("transform", `translate(0,0)`);
+
+        mainNode
+          .append("rect")
+          .attr("x", -rectWidth / 2)
+          .attr("y", -rectHeight / 2)
+          .attr("width", rectWidth)
+          .attr("height", rectHeight)
+          .attr("fill", "#ffffff")
+          .attr("stroke", d.data.gender === "male" ? "#81B1EC" : "#EEC94A")
+          .attr("stroke-width", 2)
+          .attr("rx", 8)
+          .attr("ry", 8);
+
+        mainNode
+          .append("foreignObject")
+          .attr("x", -rectWidth / 2)
+          .attr("y", -rectHeight / 2)
+          .attr("width", rectWidth)
+          .attr("height", rectHeight)
+          .append("xhtml:div")
+          .attr("class", "node-content").html(`
           <div class="node-tool">
             <button class="tool-btn">
               <span class="material-symbols-outlined">notes</span>
@@ -195,54 +199,54 @@ function FamilyTree({ mode = "client", collapsed }: FamilyTreeProps) {
           <div class="year p2-b">${d.data.year || "19xx"}</div>
         `);
 
-      // Gắn sự kiện cho nút tool-btn
-      const toolBtn = mainNode.node()?.querySelector(".tool-btn");
-      if (toolBtn) {
-        d3.select(toolBtn).on("click", (event) => {
-          event.stopPropagation();
+        // Gắn sự kiện cho nút tool-btn
+        const toolBtn = mainNode.node()?.querySelector(".tool-btn");
+        if (toolBtn) {
+          d3.select(toolBtn).on("click", (event) => {
+            event.stopPropagation();
 
-          const container = document.querySelector(
-            ".family-tree-container"
-          ) as HTMLElement;
-          const rect = container.getBoundingClientRect();
+            const container = document.querySelector(
+              ".family-tree-container"
+            ) as HTMLElement;
+            const rect = container.getBoundingClientRect();
 
-          setPopup({
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top,
-            data: d.data,
+            setPopup({
+              x: event.clientX - rect.left,
+              y: event.clientY - rect.top,
+              data: d.data,
+            });
           });
-        });
-      }
+        }
 
-      // Vẽ couple
-      if (d.data.couple && d.data.couple.length > 0) {
-        d.data.couple.forEach((c, i) => {
-          const offsetX = rectWidth * (i + 1); // khoảng cách giữa các cặp vợ chồng
-          const coupleG = group
-            .append("g")
-            .attr("class", `node ${c.gender}`)
-            .attr("transform", `translate(${offsetX + 2},0)`);
+        // Vẽ couple
+        if (d.data.couple && d.data.couple.length > 0) {
+          d.data.couple.forEach((c, i) => {
+            const offsetX = rectWidth * (i + 1); // khoảng cách giữa các cặp vợ chồng
+            const coupleG = group
+              .append("g")
+              .attr("class", `node ${c.gender}`)
+              .attr("transform", `translate(${offsetX + 2},0)`);
 
-          coupleG
-            .append("rect")
-            .attr("x", -rectWidth / 2)
-            .attr("y", -rectHeight / 2)
-            .attr("width", rectWidth)
-            .attr("height", rectHeight)
-            .attr("fill", "#ffffff")
-            .attr("stroke", c.gender === "male" ? "#81B1EC" : "#EEC94A")
-            .attr("stroke-width", 2)
-            .attr("rx", 8)
-            .attr("ry", 8);
+            coupleG
+              .append("rect")
+              .attr("x", -rectWidth / 2)
+              .attr("y", -rectHeight / 2)
+              .attr("width", rectWidth)
+              .attr("height", rectHeight)
+              .attr("fill", "#ffffff")
+              .attr("stroke", c.gender === "male" ? "#81B1EC" : "#EEC94A")
+              .attr("stroke-width", 2)
+              .attr("rx", 8)
+              .attr("ry", 8);
 
-          coupleG
-            .append("foreignObject")
-            .attr("x", -rectWidth / 2)
-            .attr("y", -rectHeight / 2)
-            .attr("width", rectWidth)
-            .attr("height", rectHeight)
-            .append("xhtml:div")
-            .attr("class", "node-content").html(`
+            coupleG
+              .append("foreignObject")
+              .attr("x", -rectWidth / 2)
+              .attr("y", -rectHeight / 2)
+              .attr("width", rectWidth)
+              .attr("height", rectHeight)
+              .append("xhtml:div")
+              .attr("class", "node-content").html(`
               <div class="node-tool">
                 <button class="tool-btn">
                   <span class="material-symbols-outlined">notes</span>
@@ -255,28 +259,39 @@ function FamilyTree({ mode = "client", collapsed }: FamilyTreeProps) {
               <div class="year p2-b">${c.year || "19xx"}</div>
             `);
 
-          // Gắn sự kiện cho nút tool-btn
-          const toolBtn = coupleG.node()?.querySelector(".tool-btn");
-          if (toolBtn) {
-            d3.select(toolBtn).on("click", (event) => {
-              event.stopPropagation();
+            // Gắn sự kiện cho nút tool-btn
+            const toolBtn = coupleG.node()?.querySelector(".tool-btn");
+            if (toolBtn) {
+              d3.select(toolBtn).on("click", (event) => {
+                event.stopPropagation();
 
-              const container = document.querySelector(
-                ".family-tree-container"
-              ) as HTMLElement;
-              const rect = container.getBoundingClientRect();
+                const container = document.querySelector(
+                  ".family-tree-container"
+                ) as HTMLElement;
+                const rect = container.getBoundingClientRect();
 
-              setPopup({
-                x: event.clientX - rect.left,
-                y: event.clientY - rect.top,
-                data: c,
+                setPopup({
+                  x: event.clientX - rect.left,
+                  y: event.clientY - rect.top,
+                  data: c,
+                });
               });
-            });
-          }
-        });
-      }
+            }
+          });
+        }
+      });
+    };
+    renderTree();
+
+    // observer theo dõi container thay đổi (do collapsed hoặc resize)
+    const observer = new ResizeObserver(() => {
+      renderTree();
     });
-  }, [collapsed]);
+    observer.observe(container);
+
+    // cleanup khi unmount
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="family-tree-container">
