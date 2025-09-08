@@ -3,7 +3,7 @@ import { Breadcrumb, Space, Table } from "antd";
 
 import Search from "../../../../components/Search/Search";
 import Button from "../../../../components/Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const { Column } = Table;
 
@@ -79,6 +79,14 @@ const data: DataType[] = [
 
 function AdminEventList() {
   const [popup, setPopup] = useState<boolean>(false);
+
+  useEffect(() => {
+      if (popup) {
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "auto";
+      }
+    }, [popup]);
 
   return (
     <div className="adminEventList-container">

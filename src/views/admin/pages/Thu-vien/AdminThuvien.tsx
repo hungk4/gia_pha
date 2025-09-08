@@ -6,11 +6,19 @@ import Button from "../../../../components/Button/Button";
 import Search from "../../../../components/Search/Search";
 import Card1 from "../../../../components/Card1/Card1";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AdminThuvien() {
   const navigate = useNavigate();
   const [popup, setPopup] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (popup) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [popup]);
 
   return (
     <>
@@ -80,7 +88,7 @@ function AdminThuvien() {
 
               <form
                 onSubmit={(e) => {
-                  e.preventDefault(); 
+                  e.preventDefault();
                   console.log("Submit form...");
                 }}
               >
