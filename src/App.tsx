@@ -22,12 +22,16 @@ import AdminCayGiaPha from "./views/admin/pages/Gia-pha/AdminCayGiaPha";
 import AdminDetailInfo from "./views/admin/pages/Gia-pha/AdminDetailInfo";
 import AdminThemCon from "./views/admin/pages/Gia-pha/AdminThemCon";
 import AdminThemHonPhu from "./views/admin/pages/Gia-pha/AdminThemHonPhu";
+import { Counter } from "./views/client/pages/Counter";
 
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* test redux tool kit */}
+        <Route path="/counter" element={<Counter />} />
+
         {/* Client Routes */}
         <Route element={<ClientLayout />}>
           <Route path="/" element={<Home />} />

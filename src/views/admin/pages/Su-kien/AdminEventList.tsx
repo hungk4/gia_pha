@@ -223,97 +223,97 @@ function AdminEventList() {
           <button className="p2-r">10</button>
           <button className="p2-r">Next</button>
         </div>
+      </div>
 
-        {popup && (
-          <div className="popup-overlay">
-            <div className="popup">
-              <div className="popup-header">
-                <p className="popup-title p1-b">Thêm sự kiện</p>
-                <span
-                  className="material-symbols-outlined close-btn"
-                  onClick={() => setPopup(false)}
-                >
-                  close
+      {popup && (
+        <div className="popup-overlay">
+          <div className="popup">
+            <div className="popup-header">
+              <p className="popup-title p1-b">Thêm sự kiện</p>
+              <span
+                className="material-symbols-outlined close-btn"
+                onClick={() => setPopup(false)}
+              >
+                close
+              </span>
+            </div>
+
+            {/* Form inputs */}
+            <div className="form-group">
+              <label htmlFor="tenSuKien">Tên sự kiện</label>
+              <input
+                type="text"
+                id="tenSuKien"
+                placeholder="Nhập tên sự kiện"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="loaiLich">Loại lịch</label>
+              <div className="select-wrapper">
+                <select id="loaiLich">
+                  <option value="duong">Dương lịch</option>
+                  <option value="am">Âm lịch</option>
+                </select>
+                <span className="material-symbols-outlined">
+                  keyboard_arrow_down
                 </span>
               </div>
+            </div>
 
-              {/* Form inputs */}
-              <div className="form-group">
-                <label htmlFor="tenSuKien">Tên sự kiện</label>
-                <input
-                  type="text"
-                  id="tenSuKien"
-                  placeholder="Nhập tên sự kiện"
-                />
-              </div>
+            <div className="form-group">
+              <label htmlFor="thoiGian">Thời gian</label>
+              <input type="date" id="thoiGian" />
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="loaiLich">Loại lịch</label>
-                <div className="select-wrapper">
-                  <select id="loaiLich">
-                    <option value="duong">Dương lịch</option>
-                    <option value="am">Âm lịch</option>
-                  </select>
-                  <span className="material-symbols-outlined">
-                    keyboard_arrow_down
-                  </span>
-                </div>
-              </div>
+            <div className="form-group">
+              <label htmlFor="diaDiem">Địa điểm</label>
+              <input type="text" id="diaDiem" placeholder="Nhập địa điểm" />
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="thoiGian">Thời gian</label>
-                <input type="date" id="thoiGian" />
-              </div>
+            <div className="form-group">
+              <label htmlFor="ghiChu">Ghi chú</label>
+              <input type="text" id="ghiChu" placeholder="Nhập ghi chú" />
+            </div>
 
-              <div className="form-group">
-                <label htmlFor="diaDiem">Địa điểm</label>
-                <input type="text" id="diaDiem" placeholder="Nhập địa điểm" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="ghiChu">Ghi chú</label>
-                <input type="text" id="ghiChu" placeholder="Nhập ghi chú" />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="lapLai">Lặp lại</label>
-                <div className="select-wrapper">
-                  <select id="lapLai">
-                    <option value="none">Không lặp lại</option>
-                    <option value="yearly">Hàng năm</option>
-                    <option value="monthly">Hàng tháng</option>
-                    <option value="weekly">Hàng tuần</option>
-                  </select>
-                  <span className="material-symbols-outlined">
-                    keyboard_arrow_down
-                  </span>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="thongBao">Thông báo</label>
-                <div className="select-wrapper">
-                  <select id="thongBao">
-                    <option value="1">Trước 1 ngày</option>
-                    <option value="3">Trước 3 ngày</option>
-                    <option value="5">Trước 5 ngày</option>
-                    <option value="7">Trước 7 ngày</option>
-                  </select>
-                  <span className="material-symbols-outlined">
-                    keyboard_arrow_down
-                  </span>
-                </div>
-              </div>
-
-              <div className="form-actions">
-                <button type="submit" className="btn-save">
-                  Lưu lại
-                </button>
+            <div className="form-group">
+              <label htmlFor="lapLai">Lặp lại</label>
+              <div className="select-wrapper">
+                <select id="lapLai">
+                  <option value="none">Không lặp lại</option>
+                  <option value="yearly">Hàng năm</option>
+                  <option value="monthly">Hàng tháng</option>
+                  <option value="weekly">Hàng tuần</option>
+                </select>
+                <span className="material-symbols-outlined">
+                  keyboard_arrow_down
+                </span>
               </div>
             </div>
+
+            <div className="form-group">
+              <label htmlFor="thongBao">Thông báo</label>
+              <div className="select-wrapper">
+                <select id="thongBao">
+                  <option value="1">Trước 1 ngày</option>
+                  <option value="3">Trước 3 ngày</option>
+                  <option value="5">Trước 5 ngày</option>
+                  <option value="7">Trước 7 ngày</option>
+                </select>
+                <span className="material-symbols-outlined">
+                  keyboard_arrow_down
+                </span>
+              </div>
+            </div>
+
+            <div className="form-actions">
+              <button type="submit" className="btn-save">
+                Lưu lại
+              </button>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
