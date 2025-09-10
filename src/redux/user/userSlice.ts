@@ -90,7 +90,7 @@ export const userSlice = createSlice({
 
       // Xóa khỏi localStorage
       localStorage.removeItem("currentUser");
-      localStorage.reomoveItem("accessToken");
+      localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
     },
   },

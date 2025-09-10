@@ -21,10 +21,12 @@ function AdminThuvien() {
     (state: RootState) => state.library
   );
 
+  // fetch data albums
   useEffect(() => {
     dispatch(fetchAlbums());
   }, [dispatch]);
 
+  // khi popup bật lên tắt scroll của body
   useEffect(() => {
     if (popup) {
       document.body.style.overflow = "hidden";
@@ -48,10 +50,10 @@ function AdminThuvien() {
   const indexFirst = (currentPage - 1) * itemsPerPage;
   const indexLast = currentPage * itemsPerPage;
   const currentAlbums = filteredAlbums.slice(indexFirst, indexLast);
-  
+
   return (
     <>
-      <div className="adminThuvien-container">
+      <div className="adminThuvien-container" style={{ height: "100%" }}>
         <h3 className="title-page h3">Thư viện</h3>
         <div className="tool">
           <div className="tool-left">
@@ -87,22 +89,24 @@ function AdminThuvien() {
             />
           </div>
         </div>
-        <Row gutter={[24, 24]} className="album-grid">
-          {loading && <p>Loading...</p>}
-          {error && <p className="error">{error}</p>}
+        <div className="album-grid-wrapper">
+          <Row gutter={[24, 24]} className="album-grid">
+            {loading && <p>Loading...</p>}
+            {error && <p className="error">{error}</p>}
 
-          {currentAlbums.map((album) => (
-            <Col key={album.id} xs={24} sm={12} md={8} className="album-item">
-              <Card1
-                img={album.image}
-                title={album.title}
-                onClick={() => {
-                  navigate(`/admin/thu-vien/album/${album.id}`);
-                }}
-              />
-            </Col>
-          ))}
-        </Row>
+            {currentAlbums.map((album) => (
+              <Col key={album.id} xs={24} sm={12} md={8} className="album-item">
+                <Card1
+                  img={album.image}
+                  title={album.title}
+                  onClick={() => {
+                    navigate(`/admin/thu-vien/album/${album.id}`);
+                  }}
+                />
+              </Col>
+            ))}
+          </Row>
+        </div>
         <div className="pagination">
           <button
             className={`p2-r ${currentPage === 1 ? "inactive" : ""}`}

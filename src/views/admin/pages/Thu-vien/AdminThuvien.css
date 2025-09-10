@@ -1,3 +1,10 @@
+.album-grid-wrapper {
+  height: 400px;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 /* tool-start */
 .adminThuvien-container .tool {
   display: flex;

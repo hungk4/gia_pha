@@ -12,6 +12,7 @@ const { Content } = Layout;
 
 const layoutStyle = {
   minHeight: "100vh",
+  height: "100vh"
 };
 
 function AdminLayout() {
