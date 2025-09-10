@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 .side {
@@ -27,7 +27,7 @@
 
 .content {
   width: 70%;
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,8 +46,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.5; 
-  z-index: -1; 
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .content .title {
@@ -80,19 +80,18 @@
 .form-group input {
   border: 1px solid var(--color-light-3);
   padding: 12px 16px;
+  border-radius: 4px;
 }
 
 .form-group input::placeholder {
   color: var(--color-dark-3);
-  opacity: 0.6; 
+  opacity: 0.6;
 }
 
 .form-group input:focus {
   border: 1px solid var(--color-dark-2);
   color: var(--color-dark-2);
 }
-
-
 
 .submit-btn {
   padding: 12px 12px;
@@ -106,18 +105,45 @@
   color: var(--color-dark-2);
 }
 
+.form-group .password-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-light-3);
+  border-radius: 4px;
+}
+
+.form-group .password-wrapper:focus-within {
+  border: 2px solid var(--color-dark-2);
+}
+
+
+.form-group .password-wrapper input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  color: var(--color-dark-2);
+}
+
+.showpwd-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-dark-2);
+  padding: 0 12px;
+}
+
 /* form login end */
 
-
 @media (max-width: 768px) {
-    .side {
-      display: none;
-    }
-    .content {
-      width: 100%;
-    }
+  .side {
+    display: none;
+  }
+  .content {
+    width: 100%;
+  }
 
-    .form-login {
-      width: fit-content;
-    }
+  .form-login {
+    width: fit-content;
+  }
 }

@@ -87,6 +87,11 @@ export const userSlice = createSlice({
       state.refreshToken = null;
       state.loading = false;
       state.error = null;
+
+      // Xóa khỏi localStorage
+      localStorage.removeItem("currentUser");
+      localStorage.reomoveItem("accessToken");
+      localStorage.removeItem("refreshToken");
     },
   },
   extraReducers: (builder) => {

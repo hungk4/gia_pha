@@ -11,6 +11,7 @@ import { login } from "../../../../redux/user/userSlice";
 function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -58,14 +59,31 @@ function AdminLogin() {
               <label htmlFor="password" className="p1-r">
                 Mật khẩu
               </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="emilyspass"
-                className="p2-r"
-                onChange={(e) => setPassword(e.target.value)}
-              ></input>
+              <div className="password-wrapper">
+                <input
+                  type={showPwd ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  placeholder="emilyspass"
+                  className="p2-r"
+                  onChange={(e) => setPassword(e.target.value)}
+                ></input>
+                <button
+                  type="button"
+                  className="showpwd-btn"
+                  onClick={() => setShowPwd(!showPwd)}
+                >
+                  {showPwd ? (
+                    <span className="material-symbols-outlined">
+                      visibility_off
+                    </span>
+                  ) : (
+                    <span className="material-symbols-outlined">
+                      visibility
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
 
             <button type="submit" className="submit-btn p1-r">
