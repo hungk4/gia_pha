@@ -1,20 +1,29 @@
 import "./AdminLayout.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import AdminHeader from "./Header/AdminHeader";
 import AdminSider from "./Sider/AdminSider";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 const { Content } = Layout;
-
-
 
 const layoutStyle = {
   minHeight: "100vh",
 };
 
 function AdminLayout() {
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/admin/login", { replace: true });
+    }
+  }, [currentUser, navigate]);
+
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -58,7 +67,7 @@ function AdminLayout() {
               transition: "all 0.2s",
             }}
           >
-            <Outlet context={{collapsed}}/>
+            <Outlet context={{ collapsed }} />
           </Content>
         </Layout>
       </Layout>

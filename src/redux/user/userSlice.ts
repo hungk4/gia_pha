@@ -19,9 +19,9 @@ export interface UserState {
 }
 
 const initialState: UserState = {
-  currentUser: null,
-  accessToken: null,
-  refreshToken: null,
+  currentUser: JSON.parse(localStorage.getItem("currentUser") || "null"),
+  accessToken: localStorage.getItem("accessToken"),
+  refreshToken: localStorage.getItem("refreshToken"),
   loading: false,
   error: null,
 };
@@ -108,6 +108,11 @@ export const userSlice = createSlice({
         };
         state.accessToken = action.payload.accessToken;
         state.refreshToken = action.payload.refreshToken;
+
+        // Lưu vào localStorage
+        localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
+        localStorage.setItem("accessToken", state.accessToken!);
+        localStorage.setItem("refreshToken", state.refreshToken!);
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

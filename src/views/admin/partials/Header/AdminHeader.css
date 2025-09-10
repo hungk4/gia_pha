@@ -28,6 +28,7 @@ header .container .logo {
   justify-content: center;
   align-items: center;
   gap: 16px;
+  position: relative;
 }
 
 .user img {
@@ -38,6 +39,26 @@ header .container .logo {
 
 .user .name {
   color: var(--color-primary);
+}
+
+.user-popup {
+  position: absolute;
+  top: 100%; 
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.user-popup button {
+  width: 100px;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
