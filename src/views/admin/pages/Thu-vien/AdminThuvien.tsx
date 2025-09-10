@@ -7,10 +7,23 @@ import Search from "../../../../components/Search/Search";
 import Card1 from "../../../../components/Card1/Card1";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../redux/store";
+import { fetchAlbums } from "../../../../redux/library/librarySlice";
 
 function AdminThuvien() {
   const navigate = useNavigate();
   const [popup, setPopup] = useState<boolean>(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { loading, error, albums } = useSelector(
+    (state: RootState) => state.library
+  );
+
+  useEffect(() => {
+    dispatch(fetchAlbums());
+  }, [dispatch]);
 
   useEffect(() => {
     if (popup) {
@@ -19,6 +32,15 @@ function AdminThuvien() {
       document.body.style.overflow = "auto";
     }
   }, [popup]);
+
+  // tính toán phân trang
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+
+  const totalPages = Math.ceil(albums.length / itemsPerPage);
+  const indexFirst = (currentPage - 1) * itemsPerPage;
+  const indexLast = currentPage * itemsPerPage;
+  const currentAlbums = albums.slice(indexFirst, indexLast);
 
   return (
     <>
@@ -33,11 +55,12 @@ function AdminThuvien() {
               id="select-options"
               className="select-options"
               name="select-options"
-              value="5"
+              value={itemsPerPage}
+              onChange={(e) => setItemsPerPage(Number(e.target.value))}
             >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+              <option value="6">6</option>
+              <option value="9">9</option>
+              <option value="12">12</option>
             </select>
           </div>
           <div className="tool-right">
@@ -52,25 +75,46 @@ function AdminThuvien() {
           </div>
         </div>
         <Row gutter={[24, 24]} className="album-grid">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <Col key={i} xs={24} sm={12} md={8} className="album-item">
+          {loading && <p>Loading...</p>}
+          {error && <p className="error">{error}</p>}
+
+          {currentAlbums.map((album) => (
+            <Col key={album.id} xs={24} sm={12} md={8} className="album-item">
               <Card1
-                title={`Img Title ${i + 1}`}
+                img={album.image}
+                title={album.title}
                 onClick={() => {
-                  navigate(`/admin/thu-vien/album/${i + 1}`);
+                  navigate(`/admin/thu-vien/album/${album.id}`);
                 }}
               />
             </Col>
           ))}
         </Row>
         <div className="pagination">
-          <button className="p2-r inactive">Previous</button>
-          <button className="p2-r active">1</button>
-          <button className="p2-r">2</button>
-          <button className="p2-r">3</button>
-          <span className="p2-r">...</span>
-          <button className="p2-r">10</button>
-          <button className="p2-r">Next</button>
+          <button
+            className={`p2-r ${currentPage === 1 ? "inactive" : ""}`}
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((currentPage) => currentPage - 1)}
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }).map((_, i) => (
+            <button
+              key={i}
+              className={`p2-r ${currentPage === i + 1 ? "active" : ""}`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          {/* <span className="p2-r">...</span> */}
+          <button
+            className={`p2-r ${currentPage === totalPages ? "inactive" : ""}`}
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((currentPage) => currentPage + 1)}
+          >
+            Next
+          </button>
         </div>
 
         {popup && (
