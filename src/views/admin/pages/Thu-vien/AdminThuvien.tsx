@@ -33,15 +33,22 @@ function AdminThuvien() {
     }
   }, [popup]);
 
+  // Input tìm kiếm
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredAlbums = albums.filter((album) =>
+    album.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // tính toán phân trang
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  const totalPages = Math.ceil(albums.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredAlbums.length / itemsPerPage);
   const indexFirst = (currentPage - 1) * itemsPerPage;
   const indexLast = currentPage * itemsPerPage;
-  const currentAlbums = albums.slice(indexFirst, indexLast);
-
+  const currentAlbums = filteredAlbums.slice(indexFirst, indexLast);
+  
   return (
     <>
       <div className="adminThuvien-container">
@@ -64,7 +71,13 @@ function AdminThuvien() {
             </select>
           </div>
           <div className="tool-right">
-            <Search placeholder="Tìm kiếm album" />
+            <Search
+              placeholder="Tìm kiếm album"
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1); // reset về trang 1 khi tìm kiếm
+              }}
+            />
             <Button
               icon="add"
               text="Thêm album"
