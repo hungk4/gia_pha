@@ -1,26 +1,56 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
 
 import avatar from "../../../../assets/images/avatar.jpg";
 
 import "./AdminThemCon.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import {
+  addMember,
+  Person,
+} from "../../../../redux/familyTree/familyTreeSlice";
+import { searchMemberById } from "../../../../helper/searchMemberById";
 
 function AdminThemCon() {
+  const data = useSelector((state: RootState) => state.familyTree);
+  const dispatch = useDispatch();
+
+  const { id: personId } = useParams<{ id: string }>();
+  let parent: Person | null;
+  if (personId) {
+    parent = searchMemberById(data, personId);
+  }
+
+
+
   const [activeTab, setActiveTab] = useState("personal");
   const navigate = useNavigate();
 
   // State quản lý dữ liệu form
-  const [formData, setFormData] = useState({
-    hoten: "",
-    gioitinh: "",
-    ngaysinh: "",
-    hientrang: "",
-    ngaymat: "",
-    thuongtru: "",
-    lienhe: "",
-    bo: "Nguyễn Văn A",
-    me: "Nguyễn Thị B, Nguyễn Thị C",
+  const [formData, setFormData] = useState<{
+    name: string;
+    gender: "male" | "female";
+    year: string;
+    status: "Alive" | "Deceased";
+    deathYear: string;
+    address: string;
+    contact: string;
+    fatherId: string;
+    motherId: string;
+  }>({
+    name: "",
+    gender: "male",
+    year: "",
+    status: "Alive",
+    deathYear: "",
+    address: "",
+    contact: "",
+    fatherId:
+      parent!.gender === "male" ? parent!.id : parent!.couple?.[0]?.id ?? "",
+    motherId:
+      parent!.gender === "female" ? parent!.id : parent!.couple?.[0]?.id ?? "",
   });
 
   // Hàm update dữ liệu khi input thay đổi
@@ -30,6 +60,33 @@ function AdminThemCon() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  // Hàm submit dữ liệu
+  // Hàm submit form
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!parent) return;
+
+    const newMember: Person = {
+      id: Date.now().toString(), // tạo id tạm
+      name: formData.name,
+      gender: formData.gender,
+      year: formData.year,
+      status: formData.status,
+      deathYear: formData.deathYear,
+      address: formData.address,
+      contact: formData.contact,
+      fatherId: formData.fatherId || "",
+      motherId: formData.motherId || "",
+      couple: [],
+      children: [],
+    };
+
+    dispatch(addMember({ member: newMember, parentNodeId: parent.id }));
+    navigate(-1);
+  };
+
   return (
     <div className="adminThemCon-container">
       <div className="detailInfo-card">
@@ -68,8 +125,8 @@ function AdminThemCon() {
                 <label>Họ tên:</label>
                 <input
                   type="text"
-                  name="hoten"
-                  value={formData.hoten}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   required
                 />
@@ -78,8 +135,8 @@ function AdminThemCon() {
               <div className="group">
                 <label>Giới tính:</label>
                 <select
-                  name="gioitinh"
-                  value={formData.gioitinh}
+                  name="gender"
+                  value={formData.gender}
                   onChange={handleChange}
                   required
                 >
@@ -92,8 +149,8 @@ function AdminThemCon() {
                 <label>Ngày sinh:</label>
                 <input
                   type="date"
-                  name="ngaysinh"
-                  value={formData.ngaysinh}
+                  name="year"
+                  value={formData.year}
                   onChange={handleChange}
                 />
               </div>
@@ -101,8 +158,8 @@ function AdminThemCon() {
               <div className="group">
                 <label>Hiện trạng:</label>
                 <select
-                  name="hientrang"
-                  value={formData.hientrang}
+                  name="status"
+                  value={formData.status}
                   onChange={handleChange}
                 >
                   <option value="Còn sống">Còn sống</option>
@@ -110,23 +167,24 @@ function AdminThemCon() {
                 </select>
               </div>
 
-              <div className="group">
-                <label>Ngày mất:</label>
-                <input
-                  type="date"
-                  name="ngaymat"
-                  value={formData.ngaymat}
-                  onChange={handleChange}
-                  disabled={formData.hientrang === "Còn sống"}
-                />
-              </div>
+              {formData.status === "Deceased" && (
+                <div className="group">
+                  <label>Ngày mất:</label>
+                  <input
+                    type="date"
+                    name="deathYear"
+                    value={formData.deathYear}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
 
               <div className="group">
                 <label>Thường trú:</label>
                 <input
                   type="text"
-                  name="thuongtru"
-                  value={formData.thuongtru}
+                  name="address"
+                  value={formData.address}
                   onChange={handleChange}
                 />
               </div>
@@ -135,42 +193,74 @@ function AdminThemCon() {
                 <label>Liên hệ:</label>
                 <input
                   type="tel"
-                  name="lienhe"
-                  value={formData.lienhe}
+                  name="contact"
+                  value={formData.contact}
                   onChange={handleChange}
                 />
               </div>
             </div>
           )}
 
-          {activeTab === "family" && (
+          {activeTab === "family" && parent! && (
             <div className="family-info p1-r">
-              <div className="group">
-                <label>Bố:</label>
-                <input
-                  type="text"
-                  name="bo"
-                  value={formData.bo}
-                  onChange={handleChange}
-                  disabled
-                />
-              </div>
+              {parent.gender === "male" ? (
+                <>
+                  {/* Bố: input disabled */}
+                  <div className="group">
+                    <label>Bố:</label>
+                    <input type="text" value={parent.name} disabled />
+                  </div>
 
-              <div className="group">
-                <label>Mẹ:</label>
-                <select>
-                  {formData.me.split(",").map((me, index) => (
-                    <option key={index} value={me.trim()}>
-                      {me.trim()}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  {/* Mẹ: select, nếu bố có nhiều vợ */}
+                  <div className="group">
+                    <label>Mẹ:</label>
+                    <select
+                      name="motherId"
+                      value={formData.motherId}
+                      onChange={handleChange}
+                    >
+                      {parent.couple && parent.couple.length > 0
+                        ? parent.couple.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))
+                        : null}
+                    </select>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Bố: select, nếu mẹ có nhiều chồng (couple của mẹ) */}
+                  <div className="group">
+                    <label>Bố:</label>
+                    <select
+                      name="fatherId"
+                      value={formData.fatherId}
+                      onChange={handleChange}
+                    >
+                      {parent.couple && parent.couple.length > 0
+                        ? parent.couple.map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                            </option>
+                          ))
+                        : null}
+                    </select>
+                  </div>
+
+                  {/* Mẹ: input disabled */}
+                  <div className="group">
+                    <label>Mẹ:</label>
+                    <input type="text" value={parent.name} disabled />
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>
 
-        <Button text="Lưu thay đổi" className="btn-save" />
+        <Button text="Lưu thay đổi" className="btn-save" onClick={handleSubmit} />
       </div>
     </div>
   );

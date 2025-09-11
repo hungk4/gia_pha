@@ -177,7 +177,7 @@ function AdminDetailInfo() {
                 <label>Bố:</label>
                 <input
                   type="text"
-                  name="bo"
+                  name="father"
                   value={
                     person?.fatherId
                       ? searchMemberById(data, person.fatherId)?.name
@@ -192,7 +192,7 @@ function AdminDetailInfo() {
                 <label>Mẹ:</label>
                 <input
                   type="text"
-                  name="me"
+                  name="mother"
                   value={
                     person?.motherId
                       ? searchMemberById(data, person.motherId)?.name

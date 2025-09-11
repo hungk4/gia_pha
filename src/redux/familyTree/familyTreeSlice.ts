@@ -196,13 +196,14 @@ export const familyTreeSlice = createSlice({
       action: PayloadAction<{ member: Person; parentNodeId: string }>
     ) => {
       const { member, parentNodeId } = action.payload;
-      if (parentNodeId) {
-        const parentNode = searchMemberById(state, parentNodeId);
-        if (parentNode) {
-          parentNode.children.push(member);
-          return;
-        }
-      }
+
+      if (!parentNodeId) return;
+
+      const parentNode = searchMemberById(state, parentNodeId);
+      if (!parentNode) return;
+
+      // Thêm member vào children của parent
+      parentNode.children.push(member);
     },
     editMember: (state, action: PayloadAction<Person>) => {
       const member = action.payload;

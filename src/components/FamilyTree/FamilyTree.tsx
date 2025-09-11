@@ -31,6 +31,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
     x: number;
     y: number;
     data: Person;
+    isCouple: boolean;
   }
   const [popup, setPopup] = useState<PopupData | null>(null);
 
@@ -195,6 +196,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
               x: event.clientX - rect.left,
               y: event.clientY - rect.top,
               data: d.data,
+              isCouple: true,
             });
           });
         }
@@ -262,6 +264,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
                   x: event.clientX - rect.left,
                   y: event.clientY - rect.top,
                   data: c,
+                  isCouple: false,
                 });
               });
             }
@@ -294,7 +297,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
             return false;
           });
 
-          if(firstMatch) return true;
+          if (firstMatch) return true;
 
           return false;
         });
@@ -355,14 +358,22 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
             close
           </span>
           <div className="menu-title">Hành động</div>
-          {mode === "admin" && (
-            <button onClick={() => navigate(`/admin/gia-pha/them-con/${popup.data.id}`)}>
+          {mode === "admin" && popup.isCouple && (
+            <button
+              onClick={() =>
+                navigate(`/admin/gia-pha/them-con/${popup.data.id}`)
+              }
+            >
               Thêm con
             </button>
           )}
 
-          {mode === "admin" && (
-            <button onClick={() => navigate(`/admin/gia-pha/them-hon-phu/${popup.data.id}`)}>
+          {mode === "admin" && popup.isCouple && (
+            <button
+              onClick={() =>
+                navigate(`/admin/gia-pha/them-hon-phu/${popup.data.id}`)
+              }
+            >
               Thêm hôn phu
             </button>
           )}
