@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+import type {
+  Person,
+  FamilyTreeState,
+} from "../../redux/familyTree/familyTreeSlice";
 
 import { useNavigate } from "react-router-dom";
 
@@ -10,50 +14,19 @@ import rongPhai from "../../assets/images/rongPhai.png";
 import board from "../../assets/images/cuonthu.png";
 import avatar from "../../assets/images/avatar.jpg";
 
-interface Person {
-  name: string;
-  gender: "male" | "female";
-  year?: string;
-  couple?: Person[];
-  children?: Person[];
-}
-
-const familyData: Person = {
-  name: "A",
-  gender: "male",
-  couple: [{ name: "A1", gender: "female" }],
-  children: [
-    {
-      name: "B",
-      gender: "female",
-      couple: [{ name: "B1", gender: "male" }],
-      children: [
-        {
-          name: "D",
-          gender: "male",
-          couple: [{ name: "D1", gender: "female" }],
-        },
-        { name: "E", gender: "female" },
-        { name: "M", gender: "male" },
-      ],
-    },
-    {
-      name: "C",
-      gender: "female",
-      couple: [{ name: "C1", gender: "male" }],
-      children: [{ name: "F", gender: "female" }],
-    },
-  ],
-};
-
 interface FamilyTreeProps {
   mode?: "admin" | "client";
-  collapsed?: boolean;
+  data: FamilyTreeState;
 }
 
-function FamilyTree({ mode = "client" }: FamilyTreeProps) {
+function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+  // Dữ liệu cây và kết quả tìm kiếm
+  const familyData = data.root;
+  const searchResults = data.searchResults;
+
+  // popup action
   interface PopupData {
     x: number;
     y: number;
@@ -82,7 +55,7 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
       const rectWidth = 150;
       const rectHeight = 188;
 
-      // Dùng d3.hierarchy
+      // 1. Chuẩn bị root và treeLayout
       const root = d3.hierarchy<Person>(familyData);
 
       // Tao layout tree
@@ -121,22 +94,23 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
         .append("g")
         .attr("transform", `translate(${initialX}, ${initialY})`);
 
-      // Thiết lập zoom
-      // 1. Tạo zoom behavior
+      // 2 Thiết lập zoom
+      // ---- 2.1 Tạo zoom behavior
       const myZoom = d3.zoom<SVGSVGElement, unknown>().on("zoom", (e) => {
         g.attr("transform", e.transform);
       });
 
-      // 2. Gọi zoom vào svg
+      // ---- 2.2 Gọi zoom vào svg
       svg.call(myZoom);
 
-      // 3. Áp dụng transform ban đầu để cây nằm giữa
+      // ---- 2.3 Áp dụng transform ban đầu để cây nằm giữa
       const initialTransform = d3.zoomIdentity
         .translate(initialX, initialY)
         .scale(1);
-      svg.call(myZoom.transform, initialTransform);
 
-      // Vẽ link
+      myZoom.transform(svg, initialTransform); // tương đương svg.call(myZoom.transform, initialTransform);
+
+      // 3. Vẽ link
       g.selectAll(".link")
         .data(root.links())
         .enter()
@@ -149,7 +123,7 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
         .attr("x2", (d) => d.target.x!)
         .attr("y2", (d) => d.target.y! - rectHeight / 2);
 
-      // Vẽ node + couple
+      // 4. Vẽ node + couple
       const nodes = g
         .selectAll(".node-group")
         .data(root.descendants())
@@ -174,7 +148,14 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
           .attr("width", rectWidth)
           .attr("height", rectHeight)
           .attr("fill", "#ffffff")
-          .attr("stroke", d.data.gender === "male" ? "#81B1EC" : "#EEC94A")
+          .attr(
+            "stroke",
+            searchResults.some((r) => r.name === d.data.name)
+              ? "red"
+              : d.data.gender === "male"
+              ? "#81B1EC"
+              : "#EEC94A"
+          )
           .attr("stroke-width", 2)
           .attr("rx", 8)
           .attr("ry", 8);
@@ -234,7 +215,14 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
               .attr("width", rectWidth)
               .attr("height", rectHeight)
               .attr("fill", "#ffffff")
-              .attr("stroke", c.gender === "male" ? "#81B1EC" : "#EEC94A")
+              .attr(
+                "stroke",
+                searchResults.some((r) => r.name === c.name)
+                  ? "red"
+                  : c.gender === "male"
+                  ? "#81B1EC"
+                  : "#EEC94A"
+              )
               .attr("stroke-width", 2)
               .attr("rx", 8)
               .attr("ry", 8);
@@ -280,6 +268,52 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
           });
         }
       });
+
+      // 5. Nếu có kết quả search thì zoom vào thành viên đầu tiên
+      if (searchResults.length > 0) {
+        const target = searchResults[0]!; // thành viên đầu tiên trong mảng
+        const targetName = target.name.toLowerCase();
+
+        let firstMatch: d3.HierarchyNode<Person> | null = null;
+        let coupleOffsetX = 0;
+
+        root.descendants().some((d) => {
+          // so sánh node chính
+          if (d.data.name.toLowerCase() === targetName) {
+            firstMatch = d;
+            return true;
+          }
+
+          // so sánh trong couple
+          d.data.couple.some((c, i) => {
+            if (c.name.toLowerCase() === targetName) {
+              firstMatch = d; // node chính
+              coupleOffsetX = 150 * (i + 1); // dịch sang cặp
+              return true;
+            }
+            return false;
+          });
+
+          if(firstMatch) return true;
+          
+          return false;
+        });
+
+        if (firstMatch) {
+          const targetX = ((firstMatch as any).x ?? 0) + coupleOffsetX;
+          const targetY = (firstMatch as any).y ?? 0;
+
+          const scale = 1.5;
+          const translateX = width / 2 - targetX * scale;
+          const translateY = 200 - targetY * scale;
+
+          const t = d3.zoomIdentity
+            .translate(translateX, translateY)
+            .scale(scale);
+
+          svg.transition().duration(750).call(myZoom.transform, t);
+        }
+      }
     };
     renderTree();
 
@@ -291,7 +325,7 @@ function FamilyTree({ mode = "client" }: FamilyTreeProps) {
 
     // cleanup khi unmount
     return () => observer.disconnect();
-  }, []);
+  }, [familyData, searchResults]);
 
   return (
     <div className="family-tree-container">

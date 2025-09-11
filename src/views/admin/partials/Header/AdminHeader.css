@@ -29,6 +29,7 @@ header .container .logo {
   align-items: center;
   gap: 16px;
   position: relative;
+  cursor:pointer;
 }
 
 .user img {

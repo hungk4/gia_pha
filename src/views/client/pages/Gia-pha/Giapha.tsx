@@ -4,8 +4,12 @@ import Search from "../../../../components/Search/Search";
 import Button from "../../../../components/Button/Button";
 
 import "./Giapha.css";
+import { RootState } from "../../../../redux/store";
+import { useSelector } from "react-redux";
 
 function Giapha() {
+  const data = useSelector((state: RootState) => state.familyTree);
+
   return (
     <>
       <div className="body">
@@ -20,7 +24,7 @@ function Giapha() {
               <Button text="Xuất gia phả" />
             </div>
           </div>
-          <FamilyTree />
+          <FamilyTree data={data}/>
         </div>
       </div>
     </>
