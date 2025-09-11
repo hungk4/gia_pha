@@ -1,26 +1,46 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import avatar from "../../../../assets/images/avatar.jpg";
 
 import "./AdminDetailInfo.css";
 import Button from "../../../../components/Button/Button";
+import { RootState } from "../../../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { searchMemberById } from "../../../../helper/searchMemberById";
+import {
+  editMember,
+  type Person,
+} from "../../../../redux/familyTree/familyTreeSlice";
 
 function AdminDetailInfo() {
+  const data = useSelector((state: RootState) => state.familyTree);
+  const dispatch = useDispatch();
+
+  const { id: personId  } = useParams<{ id: string }>();
+  let person: Person | null = null;
+
+  if (personId) {
+    person = searchMemberById(data, personId);
+  }
+
   const [activeTab, setActiveTab] = useState("personal");
   const navigate = useNavigate();
 
   // State quản lý dữ liệu form
-  const [formData, setFormData] = useState({
-    hoten: "Nguyễn Mạnh Hùng",
-    gioitinh: "Nam",
-    ngaysinh: "2000-01-01",
-    hientrang: "Còn sống",
-    ngaymat: "",
-    thuongtru: "Hà Nội",
-    lienhe: "0852865816",
-    bo: "Nguyễn Văn A",
-    me: "Nguyễn Văn B",
+  const [formData, setFormData] = useState<Person>({
+    id: personId!,
+    name: person?.name ?? "",
+    gender: person?.gender ?? "male",
+    year: person?.year ?? "2000-01-01",
+    status: person?.status ?? "Alive",
+    deathYear: person?.deathYear ?? "",
+    address: person?.address ?? "",
+    contact: person?.contact ?? "",
+    fatherId: person?.fatherId ?? "",
+    motherId: person?.motherId ?? "",
+    couple: person?.couple ?? [],
+    children: person?.children ?? [],
   });
 
   // Hàm update dữ liệu khi input thay đổi
@@ -31,6 +51,14 @@ function AdminDetailInfo() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Hàm submit form
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(
+      editMember(formData)
+    );
+    navigate(-1); // quay về trang truo
+  };
   return (
     <div className="adminDetailInfo-container">
       <div className="detailInfo-card">
@@ -69,8 +97,8 @@ function AdminDetailInfo() {
                 <label>Họ tên:</label>
                 <input
                   type="text"
-                  name="hoten"
-                  value={formData.hoten}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                 />
               </div>
@@ -78,8 +106,8 @@ function AdminDetailInfo() {
               <div className="group">
                 <label>Giới tính:</label>
                 <select
-                  name="gioitinh"
-                  value={formData.gioitinh}
+                  name="gender"
+                  value={formData.gender}
                   onChange={handleChange}
                 >
                   <option value="Nam">Nam</option>
@@ -91,8 +119,8 @@ function AdminDetailInfo() {
                 <label>Ngày sinh:</label>
                 <input
                   type="date"
-                  name="ngaysinh"
-                  value={formData.ngaysinh}
+                  name="year"
+                  value={formData.year}
                   onChange={handleChange}
                 />
               </div>
@@ -100,32 +128,33 @@ function AdminDetailInfo() {
               <div className="group">
                 <label>Hiện trạng:</label>
                 <select
-                  name="hientrang"
-                  value={formData.hientrang}
+                  name="status"
+                  value={formData.status}
                   onChange={handleChange}
                 >
-                  <option value="Còn sống">Còn sống</option>
-                  <option value="Đã mất">Đã mất</option>
+                  <option value="Alive">Còn sống</option>
+                  <option value="Deceased">Đã mất</option>
                 </select>
               </div>
 
-              <div className="group">
-                <label>Ngày mất:</label>
-                <input
-                  type="date"
-                  name="ngaymat"
-                  value={formData.ngaymat}
-                  onChange={handleChange}
-                  disabled={formData.hientrang === "Còn sống"}
-                />
-              </div>
+              {formData.status === "Deceased" && (
+                <div className="group">
+                  <label>Ngày mất:</label>
+                  <input
+                    type="date"
+                    name="deathYear"
+                    value={formData.deathYear}
+                    onChange={handleChange}
+                  />
+                </div>
+              )}
 
               <div className="group">
                 <label>Thường trú:</label>
                 <input
                   type="text"
                   name="thuongtru"
-                  value={formData.thuongtru}
+                  value={formData.address}
                   onChange={handleChange}
                 />
               </div>
@@ -135,7 +164,7 @@ function AdminDetailInfo() {
                 <input
                   type="tel"
                   name="lienhe"
-                  value={formData.lienhe}
+                  value={formData.contact}
                   onChange={handleChange}
                 />
               </div>
@@ -149,7 +178,11 @@ function AdminDetailInfo() {
                 <input
                   type="text"
                   name="bo"
-                  value={formData.bo}
+                  value={
+                    person?.fatherId
+                      ? searchMemberById(data, person.fatherId)?.name
+                      : ""
+                  }
                   onChange={handleChange}
                   disabled
                 />
@@ -160,7 +193,11 @@ function AdminDetailInfo() {
                 <input
                   type="text"
                   name="me"
-                  value={formData.me}
+                  value={
+                    person?.motherId
+                      ? searchMemberById(data, person.motherId)?.name
+                      : ""
+                  }
                   onChange={handleChange}
                   disabled
                 />
@@ -169,7 +206,11 @@ function AdminDetailInfo() {
           )}
         </div>
 
-        <Button text="Lưu thay đổi" className="btn-save"/>
+        <Button
+          text="Lưu thay đổi"
+          className="btn-save"
+          onClick={handleSubmit}
+        />
       </div>
     </div>
   );

@@ -60,7 +60,7 @@
 }
 .p2-b {
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 500;
   font-size: var(--p2-size);
   line-height: var(--lh-body);
 }

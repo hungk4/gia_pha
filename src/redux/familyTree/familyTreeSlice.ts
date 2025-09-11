@@ -1,10 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { searchFamilyTreeBfs } from "../../helper/searchFamilyTreeBFS";
+import { searchMemberById } from "../../helper/searchMemberById";
 
 export interface Person {
+  id: string;
   name: string;
   gender: "male" | "female";
-  year: string; // năm sinh
+  year: string; // yyyy-mm-dd
+  status: "Alive" | "Deceased";
+  deathYear: string;
+  address: string;
+  contact: string;
+  fatherId: string;
+  motherId: string;
   couple: Person[];
   children: Person[];
 }
@@ -16,42 +24,84 @@ export interface FamilyTreeState {
 
 const initialState: FamilyTreeState = {
   root: {
+    id: "1",
     name: "A",
     gender: "male",
-    year: "1970",
+    year: "1970-01-01",
+    status: "Alive",
+    deathYear: "",
+    address: "",
+    contact: "",
+    fatherId: "",
+    motherId: "",
     couple: [
       {
+        id: "2",
         name: "B",
         gender: "female",
-        year: "1972",
+        year: "1972-01-01",
+        status: "Alive",
+        deathYear: "",
+        address: "",
+        contact: "",
+        fatherId: "",
+        motherId: "",
         couple: [],
         children: [],
       },
     ],
     children: [
       {
+        id: "3",
         name: "B",
         gender: "female",
-        year: "1995",
+        year: "1995-01-01",
+        status: "Alive",
+        deathYear: "",
+        address: "",
+        contact: "",
+        fatherId: "1",
+        motherId: "2",
         couple: [
           {
+            id: "4",
             name: "B1",
             gender: "male",
-            year: "1994",
+            year: "1994-01-01",
+            status: "Alive",
+            deathYear: "",
+            address: "",
+            contact: "",
+            fatherId: "",
+            motherId: "",
             couple: [],
             children: [],
           },
         ],
         children: [
           {
+            id: "5",
             name: "D",
             gender: "male",
-            year: "2015",
+            year: "2015-01-01",
+            status: "Alive",
+            deathYear: "",
+            address: "",
+            contact: "",
+            fatherId: "3",
+            motherId: "4",
             couple: [
               {
+                id: "6",
                 name: "D1",
                 gender: "female",
-                year: "2016",
+                year: "2016-01-01",
+                status: "Alive",
+                deathYear: "",
+                address: "",
+                contact: "",
+                fatherId: "",
+                motherId: "",
                 couple: [],
                 children: [],
               },
@@ -59,39 +109,74 @@ const initialState: FamilyTreeState = {
             children: [],
           },
           {
+            id: "7",
             name: "E",
             gender: "female",
-            year: "2017",
+            year: "2017-01-01",
+            status: "Alive",
+            deathYear: "",
+            address: "",
+            contact: "",
+            fatherId: "3",
+            motherId: "4",
             couple: [],
             children: [],
           },
           {
+            id: "8",
             name: "M",
             gender: "male",
-            year: "2019",
+            year: "2019-01-01",
+            status: "Alive",
+            deathYear: "",
+            address: "",
+            contact: "",
+            fatherId: "3",
+            motherId: "4",
             couple: [],
             children: [],
           },
         ],
       },
       {
+        id: "9",
         name: "C",
         gender: "female",
-        year: "1998",
+        year: "1998-01-01",
+        status: "Alive",
+        deathYear: "",
+        address: "",
+        contact: "",
+        fatherId: "1",
+        motherId: "2",
         couple: [
           {
+            id: "10",
             name: "C1",
             gender: "male",
-            year: "1997",
+            year: "1997-01-01",
+            status: "Alive",
+            deathYear: "",
+            address: "",
+            contact: "",
+            fatherId: "",
+            motherId: "",
             couple: [],
             children: [],
           },
         ],
         children: [
           {
+            id: "11",
             name: "F",
             gender: "female",
-            year: "2020",
+            year: "2020-01-01",
+            status: "Alive",
+            deathYear: "",
+            address: "",
+            contact: "",
+            fatherId: "9",
+            motherId: "10",
             couple: [],
             children: [],
           },
@@ -106,13 +191,43 @@ export const familyTreeSlice = createSlice({
   name: "tree",
   initialState, // dùng luôn initialState đã khai báo
   reducers: {
+    addMember: (
+      state,
+      action: PayloadAction<{ member: Person; parentNodeId: string }>
+    ) => {
+      const { member, parentNodeId } = action.payload;
+      if (parentNodeId) {
+        const parentNode = searchMemberById(state, parentNodeId);
+        if (parentNode) {
+          parentNode.children.push(member);
+          return;
+        }
+      }
+    },
+    editMember: (state, action: PayloadAction<Person>) => {
+      const member = action.payload;
+      let nodeToEdit = searchMemberById(state, member.id);
+      if (nodeToEdit) {
+        nodeToEdit.name = member.name;
+        nodeToEdit.gender = member.gender;
+        nodeToEdit.year = member.year;
+        nodeToEdit.status = member.status;
+        nodeToEdit.deathYear = member.deathYear;
+        nodeToEdit.address = member.address;
+        nodeToEdit.contact = member.contact;
+        nodeToEdit.fatherId = member.fatherId;
+        nodeToEdit.motherId = member.motherId;
+        nodeToEdit.couple = member.couple;
+        nodeToEdit.children = member.children;
+      }
+    },
     searchMember: (state, action: PayloadAction<string>) => {
       const targetName = action.payload.trim();
       if (!targetName) {
         state.searchResults = [];
         return;
       }
-      const result = searchFamilyTreeBfs(initialState, targetName);
+      const result = searchFamilyTreeBfs(state, targetName);
       state.searchResults = result;
     },
     clearSearch: (state) => {
@@ -121,6 +236,7 @@ export const familyTreeSlice = createSlice({
   },
 });
 
-export const { searchMember, clearSearch } = familyTreeSlice.actions;
+export const { addMember, editMember, searchMember, clearSearch } =
+  familyTreeSlice.actions;
 
 export default familyTreeSlice.reducer;

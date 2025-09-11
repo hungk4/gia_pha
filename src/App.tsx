@@ -50,8 +50,8 @@ function App() {
           <Route path="gia-pha" element={<AdminGiapha />} />{" "}
           <Route path="gia-pha/cay-gia-pha" element={<AdminCayGiaPha/>} />
           <Route path="gia-pha/danh-sach-thanh-vien" element={<AdminGiaphaUserList/>} />
-          <Route path="gia-pha/chinh-sua" element={<AdminDetailInfo/>} />
-          <Route path="gia-pha/them-con" element={<AdminThemCon/>} />
+          <Route path="gia-pha/chinh-sua/:id" element={<AdminDetailInfo/>} />
+          <Route path="gia-pha/them-con/:id" element={<AdminThemCon/>} />
           <Route path="gia-pha/them-hon-phu" element={<AdminThemHonPhu/>} />
 
           <Route path="thu-vien" element={<AdminThuvien />} />

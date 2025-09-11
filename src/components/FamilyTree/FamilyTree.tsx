@@ -295,7 +295,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           });
 
           if(firstMatch) return true;
-          
+
           return false;
         });
 
@@ -356,13 +356,13 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           </span>
           <div className="menu-title">Hành động</div>
           {mode === "admin" && (
-            <button onClick={() => navigate(`/admin/gia-pha/them-con`)}>
+            <button onClick={() => navigate(`/admin/gia-pha/them-con/${popup.data.id}`)}>
               Thêm con
             </button>
           )}
 
           {mode === "admin" && (
-            <button onClick={() => navigate(`/admin/gia-pha/them-hon-phu`)}>
+            <button onClick={() => navigate(`/admin/gia-pha/them-hon-phu/${popup.data.id}`)}>
               Thêm hôn phu
             </button>
           )}
@@ -370,7 +370,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           <button
             onClick={() => {
               if (mode === "admin") {
-                navigate(`/admin/gia-pha/chinh-sua`);
+                navigate(`/admin/gia-pha/chinh-sua/${popup.data.id}`);
               } else {
                 console.log("Xem chi tiết", popup.data);
                 navigate(`/gia-pha/chi-tiet`);
