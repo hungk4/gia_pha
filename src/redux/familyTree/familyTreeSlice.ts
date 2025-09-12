@@ -243,7 +243,12 @@ export const familyTreeSlice = createSlice({
   },
 });
 
-export const { addMember, editMember, deleteMember, searchMember, clearSearch } =
-  familyTreeSlice.actions;
+export const {
+  addMember,
+  editMember,
+  deleteMember,
+  searchMember,
+  clearSearch,
+} = familyTreeSlice.actions;
 
 export default familyTreeSlice.reducer;
