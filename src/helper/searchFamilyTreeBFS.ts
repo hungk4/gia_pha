@@ -3,15 +3,17 @@ import type {
   FamilyTreeState,
 } from "../redux/familyTree/familyTreeSlice";
 
+// search by name
 export const searchFamilyTreeBfs = (
   data: FamilyTreeState,
   targetName: string
 ) => {
 
   const result: Person[] = [];
+  if (!data.root) return result; // nếu root null thì trả về mảng rỗng
 
-  let queue: Person[] = [];
-  queue.push(data.root);
+  let queue: Person[] = [data.root];
+
   while (queue.length !== 0) {
     // lấy phần tử đầu tiên ra khỏi hàng đợi
     let first = queue.shift();

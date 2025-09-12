@@ -6,8 +6,8 @@ import type {
 export const searchMemberById = (
   data: FamilyTreeState,
   personId: string
-) => {
-
+): Person | null => {
+  if (!data.root) return null; // nếu root null thì trả về null
 
   let queue: Person[] = [];
   

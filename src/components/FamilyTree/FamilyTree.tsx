@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import type {
-  Person,
-  FamilyTreeState,
+import {
+  type Person,
+  type FamilyTreeState,
+  deleteMember,
 } from "../../redux/familyTree/familyTreeSlice";
 
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ import rongTrai from "../../assets/images/rongTrai.png";
 import rongPhai from "../../assets/images/rongPhai.png";
 import board from "../../assets/images/cuonthu.png";
 import avatar from "../../assets/images/avatar.jpg";
+import { useDispatch } from "react-redux";
 
 interface FamilyTreeProps {
   mode?: "admin" | "client";
@@ -30,18 +32,20 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
   interface PopupData {
     x: number;
     y: number;
-    data: Person;
+    personId: string ;
     isCouple: boolean;
   }
   const [popup, setPopup] = useState<PopupData | null>(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function closePopup() {
     setPopup(null);
   }
 
   useEffect(() => {
+    if(!familyData) return;
     const container = svgRef.current?.parentElement;
     if (!container) return;
 
@@ -195,7 +199,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
             setPopup({
               x: event.clientX - rect.left,
               y: event.clientY - rect.top,
-              data: d.data,
+              personId: d.data.id,
               isCouple: true,
             });
           });
@@ -263,7 +267,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
                 setPopup({
                   x: event.clientX - rect.left,
                   y: event.clientY - rect.top,
-                  data: c,
+                  personId: c.id,
                   isCouple: false,
                 });
               });
@@ -361,7 +365,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           {mode === "admin" && popup.isCouple && (
             <button
               onClick={() =>
-                navigate(`/admin/gia-pha/them-con/${popup.data.id}`)
+                navigate(`/admin/gia-pha/them-con/${popup.personId}`)
               }
             >
               Thêm con
@@ -371,7 +375,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           {mode === "admin" && popup.isCouple && (
             <button
               onClick={() =>
-                navigate(`/admin/gia-pha/them-hon-phu/${popup.data.id}`)
+                navigate(`/admin/gia-pha/them-hon-phu/${popup.personId}`)
               }
             >
               Thêm hôn phu
@@ -381,9 +385,9 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           <button
             onClick={() => {
               if (mode === "admin") {
-                navigate(`/admin/gia-pha/chinh-sua/${popup.data.id}`);
+                navigate(`/admin/gia-pha/chinh-sua/${popup.personId}`);
               } else {
-                console.log("Xem chi tiết", popup.data);
+                console.log("Xem chi tiết", popup.personId);
                 navigate(`/gia-pha/chi-tiet`);
               }
             }}
@@ -397,7 +401,10 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           <button onClick={() => console.log("Trở về gốc")}>Trở về gốc</button>
 
           {mode === "admin" && (
-            <button onClick={() => console.log("Xóa")}>Xóa</button>
+            <button onClick={() => {
+              dispatch(deleteMember(popup.personId));
+              setPopup(null);
+            }}>Xóa</button>
           )}
         </div>
       )}

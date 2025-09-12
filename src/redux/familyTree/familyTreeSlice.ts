@@ -1,6 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { searchFamilyTreeBfs } from "../../helper/searchFamilyTreeBFS";
 import { searchMemberById } from "../../helper/searchMemberById";
+import { removeMember } from "../../helper/removeMember";
+
+export interface Couple {
+  id: string;
+  name: string;
+  gender: "male" | "female";
+  year: string;
+  status: "Alive" | "Deceased";
+  deathYear: string;
+  address: string;
+  contact: string;
+  fatherId: string;
+  motherId: string;
+  childrenId: string[];
+}
 
 export interface Person {
   id: string;
@@ -13,12 +28,12 @@ export interface Person {
   contact: string;
   fatherId: string;
   motherId: string;
-  couple: Person[];
+  couple: Couple[];
   children: Person[];
 }
 
 export interface FamilyTreeState {
-  root: Person;
+  root: Person | null;
   searchResults: Person[];
 }
 
@@ -37,7 +52,7 @@ const initialState: FamilyTreeState = {
     couple: [
       {
         id: "2",
-        name: "B",
+        name: "A1",
         gender: "female",
         year: "1972-01-01",
         status: "Alive",
@@ -46,8 +61,7 @@ const initialState: FamilyTreeState = {
         contact: "",
         fatherId: "",
         motherId: "",
-        couple: [],
-        children: [],
+        childrenId: ["3", "9"], // tham chiếu đến con cái
       },
     ],
     children: [
@@ -74,8 +88,7 @@ const initialState: FamilyTreeState = {
             contact: "",
             fatherId: "",
             motherId: "",
-            couple: [],
-            children: [],
+            childrenId: ["5", "7", "8"], // tham chiếu đến con cái
           },
         ],
         children: [
@@ -102,8 +115,7 @@ const initialState: FamilyTreeState = {
                 contact: "",
                 fatherId: "",
                 motherId: "",
-                couple: [],
-                children: [],
+                childrenId: [], // chưa có con
               },
             ],
             children: [],
@@ -161,8 +173,7 @@ const initialState: FamilyTreeState = {
             contact: "",
             fatherId: "",
             motherId: "",
-            couple: [],
-            children: [],
+            childrenId: ["11"],
           },
         ],
         children: [
@@ -222,6 +233,10 @@ export const familyTreeSlice = createSlice({
         nodeToEdit.children = member.children;
       }
     },
+    deleteMember: (state, action: PayloadAction<string>) => {
+      const memberId = action.payload;
+      // state.root = removeMember(state.root, memberId);
+    },
     searchMember: (state, action: PayloadAction<string>) => {
       const targetName = action.payload.trim();
       if (!targetName) {
@@ -237,7 +252,12 @@ export const familyTreeSlice = createSlice({
   },
 });
 
-export const { addMember, editMember, searchMember, clearSearch } =
-  familyTreeSlice.actions;
+export const {
+  addMember,
+  editMember,
+  deleteMember,
+  searchMember,
+  clearSearch,
+} = familyTreeSlice.actions;
 
 export default familyTreeSlice.reducer;
