@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { searchFamilyTreeBfs } from "../../helper/searchFamilyTreeBFS";
 import { searchMemberById } from "../../helper/searchMemberById";
+import { removeMember } from "../../helper/removeMember";
 
 export interface Person {
   id: string;
@@ -18,7 +19,7 @@ export interface Person {
 }
 
 export interface FamilyTreeState {
-  root: Person;
+  root: Person | null;
   searchResults: Person[];
 }
 
@@ -222,6 +223,11 @@ export const familyTreeSlice = createSlice({
         nodeToEdit.children = member.children;
       }
     },
+    deleteMember: (state, action: PayloadAction<string>) => {
+      const memberId = action.payload;
+      state.root = removeMember(state.root, memberId);
+    },
+
     searchMember: (state, action: PayloadAction<string>) => {
       const targetName = action.payload.trim();
       if (!targetName) {
@@ -237,7 +243,7 @@ export const familyTreeSlice = createSlice({
   },
 });
 
-export const { addMember, editMember, searchMember, clearSearch } =
+export const { addMember, editMember, deleteMember, searchMember, clearSearch } =
   familyTreeSlice.actions;
 
 export default familyTreeSlice.reducer;

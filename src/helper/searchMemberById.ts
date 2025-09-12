@@ -3,21 +3,18 @@ import type {
   FamilyTreeState,
 } from "../redux/familyTree/familyTreeSlice";
 
-export const searchMemberById = (
-  data: FamilyTreeState,
-  personId: string
-) => {
-
-
+export const searchMemberById = (data: FamilyTreeState, personId: string) => {
   let queue: Person[] = [];
-  
-  queue.push(data.root);
+
+  if (data.root) {
+    queue.push(data.root);
+  }
   while (queue.length !== 0) {
     // lấy phần tử đầu tiên ra khỏi hàng đợi
     let first = queue.shift();
-    if (first?.id === personId ) {
-      return first
-    };
+    if (first?.id === personId) {
+      return first;
+    }
 
     // duyệt couple
     if (first?.couple) {
@@ -35,5 +32,4 @@ export const searchMemberById = (
   }
 
   return null;
-  
 };

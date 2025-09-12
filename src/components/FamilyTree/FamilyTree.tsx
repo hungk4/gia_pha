@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
-import type {
-  Person,
-  FamilyTreeState,
+import {
+  type Person,
+  type FamilyTreeState,
+  deleteMember,
 } from "../../redux/familyTree/familyTreeSlice";
 
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ import rongTrai from "../../assets/images/rongTrai.png";
 import rongPhai from "../../assets/images/rongPhai.png";
 import board from "../../assets/images/cuonthu.png";
 import avatar from "../../assets/images/avatar.jpg";
+import { useDispatch } from "react-redux";
 
 interface FamilyTreeProps {
   mode?: "admin" | "client";
@@ -36,6 +38,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
   const [popup, setPopup] = useState<PopupData | null>(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function closePopup() {
     setPopup(null);
@@ -44,6 +47,8 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
   useEffect(() => {
     const container = svgRef.current?.parentElement;
     if (!container) return;
+
+    if (!familyData) return;
 
     const renderTree = () => {
       // Xét kích thước của SVG
@@ -397,7 +402,10 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
           <button onClick={() => console.log("Trở về gốc")}>Trở về gốc</button>
 
           {mode === "admin" && (
-            <button onClick={() => console.log("Xóa")}>Xóa</button>
+            <button onClick={() => {
+              dispatch(deleteMember(popup.data.id));
+              setPopup(null);
+            }}>Xóa</button>
           )}
         </div>
       )}
