@@ -389,7 +389,7 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
                 navigate(`/admin/gia-pha/chinh-sua/${popup.data.id}`);
               } else {
                 console.log("Xem chi tiết", popup.data);
-                navigate(`/gia-pha/chi-tiet`);
+                navigate(`/gia-pha/chi-tiet/${popup.data.id}`);
               }
             }}
           >

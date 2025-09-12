@@ -35,7 +35,7 @@ function App() {
         <Route element={<ClientLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/gia-pha" element={<Giapha />} />
-          <Route path="/gia-pha/chi-tiet" element={<DetailInfo />} />
+          <Route path="/gia-pha/chi-tiet/:id" element={<DetailInfo />} />
           <Route path="/thu-vien" element={<Thuvien />} />
           <Route path="/thu-vien/album" element={<Album />} />
           <Route path="/su-kien" element={<Sukien />} />

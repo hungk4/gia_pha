@@ -17,7 +17,7 @@ function AdminDetailInfo() {
   const data = useSelector((state: RootState) => state.familyTree);
   const dispatch = useDispatch();
 
-  const { id: personId  } = useParams<{ id: string }>();
+  const { id: personId } = useParams<{ id: string }>();
   let person: Person | null = null;
 
   if (personId) {
@@ -54,9 +54,7 @@ function AdminDetailInfo() {
   // Hàm submit form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(
-      editMember(formData)
-    );
+    dispatch(editMember(formData));
     navigate(-1); // quay về trang truo
   };
   return (
@@ -153,7 +151,7 @@ function AdminDetailInfo() {
                 <label>Thường trú:</label>
                 <input
                   type="text"
-                  name="thuongtru"
+                  name="address"
                   value={formData.address}
                   onChange={handleChange}
                 />
@@ -163,7 +161,7 @@ function AdminDetailInfo() {
                 <label>Liên hệ:</label>
                 <input
                   type="tel"
-                  name="lienhe"
+                  name="contact"
                   value={formData.contact}
                   onChange={handleChange}
                 />
@@ -201,6 +199,24 @@ function AdminDetailInfo() {
                   onChange={handleChange}
                   disabled
                 />
+              </div>
+
+              <div className="group">
+                <label>Hôn phu:</label>
+                <ul>
+                  {person?.couple.map((c) => (
+                    <li key={c.id}>{c.name}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="group">
+                <label>Con cái:</label>
+                <ul>
+                  {person?.children.map((child) => (
+                    <li key={child.id}>{child.name}</li>
+                  ))}
+                </ul>
               </div>
             </div>
           )}

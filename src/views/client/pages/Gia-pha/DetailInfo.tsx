@@ -1,26 +1,38 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import avatar from "../../../../assets/images/avatar.jpg";
 
 import "./DetailInfo.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import { searchMemberById } from "../../../../helper/searchMemberById";
+import { type Person } from "../../../../redux/familyTree/familyTreeSlice";
 
 function DetailInfo() {
+  const data = useSelector((state: RootState) => state.familyTree);
+  const { id: personId } = useParams<{ id: string }>();
+  let person: Person | null = null;
+
+  if (personId) {
+    person = searchMemberById(data, personId);
+  }
+
   const [activeTab, setActiveTab] = useState("personal");
   const navigate = useNavigate();
 
   const personData = {
-    hoten: "Nguyễn Mạnh Hùng",
-    gioitinh: "Nam",
-    ngaysinh: "02-09-1990",
-    hientrang: "Còn sống",
-    ngaymat: "",
-    thuongtru: "Hà Nội",
-    lienhe: "0852865816",
-    bo: "Nguyễn Văn A",
-    me: "Nguyễn Văn B",
-    honThe: ["Nguyễn Thị C"],
-    con: ["Nguyễn Văn D", "Nguyễn Văn E"],
+    name: person?.name ?? "",
+    gender: person?.gender ?? "male",
+    year: person?.year ?? "yyyy-mm-dd",
+    status: person?.status ?? "Alive",
+    deathYear: person?.deathYear ?? "",
+    address: person?.address ?? "",
+    contact: person?.contact ?? "",
+    fatherId: person?.fatherId ?? "",
+    motherId: person?.motherId ?? "",
+    couple: person?.couple ?? [],
+    children: person?.children ?? [],
   };
 
   return (
@@ -61,35 +73,35 @@ function DetailInfo() {
                 <div className="personal-info p1-r">
                   <p>
                     <span>Họ tên: </span>
-                    <strong>{personData.hoten}</strong>
+                    <strong>{personData.name}</strong>
                   </p>
                   <p>
                     <span>Giới tính: </span>
-                    <strong>{personData.gioitinh}</strong>
+                    <strong>{personData.gender}</strong>
                   </p>
                   <p>
                     <span>Ngày sinh: </span>
-                    <strong>{personData.ngaysinh}</strong>
+                    <strong>{personData.year}</strong>
                   </p>
                   <p>
                     <span>Hiện trạng: </span>
-                    <strong>{personData.hientrang}</strong>
-                  </p>
-                  <p>
-                    <span>Ngày mất: </span>
                     <strong>
-                      {personData.ngaymat
-                        ? personData.ngaymat
-                        : "--/--/----"}
+                      {personData.status === "Alive" ? "Còn sống" : "Đã mất"}
                     </strong>
                   </p>
+                  {personData.status === "Deceased" && (
+                    <p>
+                      <span>Ngày mất: </span>
+                      <strong>{personData.deathYear}</strong>
+                    </p>
+                  )}
                   <p>
                     <span>Thường trú: </span>
-                    <strong>{personData.thuongtru}</strong>
+                    <strong>{personData.address}</strong>
                   </p>
                   <p>
                     <span>Liên hệ: </span>
-                    <strong>{personData.lienhe}</strong>
+                    <strong>{personData.contact}</strong>
                   </p>
                 </div>
               )}
@@ -99,19 +111,35 @@ function DetailInfo() {
                   <div className="family-info p1-r">
                     <p>
                       <span>Bố: </span>
-                      <strong>{personData.bo}</strong>
+                      <strong>
+                        {person?.fatherId
+                          ? searchMemberById(data, person.fatherId)?.name
+                          : ""}
+                      </strong>
                     </p>
                     <p>
                       <span>Mẹ: </span>
-                      <strong>{personData.me}</strong>
+                      <strong>
+                        {person?.motherId
+                          ? searchMemberById(data, person.motherId)?.name
+                          : ""}
+                      </strong>
                     </p>
                     <p>
                       <span>Hôn thê: </span>
-                      <strong>{personData.honThe.join(", ")}</strong>
+                      <ul>
+                        {person?.couple.map((c) => (
+                          <li key={c.id}>{c.name}</li>
+                        ))}
+                      </ul>
                     </p>
                     <p>
                       <span>Con cái: </span>
-                      <strong>{personData.con.join(", ")}</strong>
+                      <ul>
+                        {person?.children.map((child) => (
+                          <li key={child.id}>{child.name}</li>
+                        ))}
+                      </ul>
                     </p>
                   </div>
                 </>
