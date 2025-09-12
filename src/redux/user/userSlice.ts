@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 interface User {
   id: number;
@@ -118,6 +119,8 @@ export const userSlice = createSlice({
         localStorage.setItem("currentUser", JSON.stringify(state.currentUser));
         localStorage.setItem("accessToken", state.accessToken!);
         localStorage.setItem("refreshToken", state.refreshToken!);
+
+        toast.success("Đăng nhập thành công!");
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

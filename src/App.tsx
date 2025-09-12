@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Home from "./views/client/pages/Home/Home";
 import Giapha from "./views/client/pages/Gia-pha/Giapha";
@@ -23,14 +24,11 @@ import AdminDetailInfo from "./views/admin/pages/Gia-pha/AdminDetailInfo";
 import AdminThemCon from "./views/admin/pages/Gia-pha/AdminThemCon";
 import AdminThemHonPhu from "./views/admin/pages/Gia-pha/AdminThemHonPhu";
 
-
-
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
-        
-
         {/* Client Routes */}
         <Route element={<ClientLayout />}>
           <Route path="/" element={<Home />} />
@@ -46,20 +44,23 @@ function App() {
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminHome />} />
-
           <Route path="gia-pha" element={<AdminGiapha />} />{" "}
-          <Route path="gia-pha/cay-gia-pha" element={<AdminCayGiaPha/>} />
-          <Route path="gia-pha/danh-sach-thanh-vien" element={<AdminGiaphaUserList/>} />
-          <Route path="gia-pha/chinh-sua/:id" element={<AdminDetailInfo/>} />
-          <Route path="gia-pha/them-con/:id" element={<AdminThemCon/>} />
-          <Route path="gia-pha/them-hon-phu" element={<AdminThemHonPhu/>} />
-
+          <Route path="gia-pha/cay-gia-pha" element={<AdminCayGiaPha />} />
+          <Route
+            path="gia-pha/danh-sach-thanh-vien"
+            element={<AdminGiaphaUserList />}
+          />
+          <Route path="gia-pha/chinh-sua/:id" element={<AdminDetailInfo />} />
+          <Route path="gia-pha/them-con/:id" element={<AdminThemCon />} />
+          <Route path="gia-pha/them-hon-phu" element={<AdminThemHonPhu />} />
           <Route path="thu-vien" element={<AdminThuvien />} />
           <Route path="thu-vien/album/:id" element={<AdminAlbum />} />
-
           <Route path="su-kien" element={<AdminSukien />} />
           <Route path="danh-sach-su-kien" element={<AdminEventList />} />
-          <Route path="danh-sach-nguoi-nhan-thong-bao" element={<AdminEventUser/>} />
+          <Route
+            path="danh-sach-nguoi-nhan-thong-bao"
+            element={<AdminEventUser />}
+          />
         </Route>
 
         <Route path="*" element={<h1>404 Not Found</h1>}></Route>

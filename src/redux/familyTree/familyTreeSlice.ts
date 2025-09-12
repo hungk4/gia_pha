@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { searchFamilyTreeBfs } from "../../helper/searchFamilyTreeBFS";
 import { searchMemberById } from "../../helper/searchMemberById";
 import { removeMember } from "../../helper/removeMember";
+import { toast } from "react-toastify";
 
 export interface Person {
   id: string;
@@ -177,6 +178,7 @@ export const familyTreeSlice = createSlice({
 
       // Thêm member vào children của parent
       parentNode.children.push(member);
+      toast.success("Thêm con thành công!");
     },
     editMember: (state, action: PayloadAction<Person>) => {
       const member = action.payload;

@@ -1,4 +1,5 @@
 import { type Person } from "../redux/familyTree/familyTreeSlice";
+import { toast } from "react-toastify";
 
 // note: ko được phép xóa nếu node vẫn còn children
 export const removeMember = (
@@ -10,6 +11,7 @@ export const removeMember = (
   // Nếu root chính là node cần xoá
   if (root.id === memberId) {
     if (root.children.length > 0) {
+      toast.error("Không được xóa do thành viên vẫn còn con cái");
       return root; // không xoá nếu còn children
     }
     return null; // xoá root
@@ -24,9 +26,11 @@ export const removeMember = (
     );
 
     if (hasChildren) {
+      toast.error("Không được xóa do thành viên vẫn còn con cái");
       return root; // không xoá nếu couple còn children
     }
 
+    toast.success("Xóa thành công");
     root.couple.splice(coupleIndex, 1); // xoá couple
     return root;
   }
@@ -36,9 +40,11 @@ export const removeMember = (
   if (childIndex !== -1) {
     const target = root.children[childIndex];
     if (target && target.children.length > 0) {
+      toast.error("Không được xóa do thành viên vẫn còn con cái");
       return root; // không xoá nếu còn children
     }
     root.children.splice(childIndex, 1); // xoá child
+    toast.success("Xóa thành công");
     return root;
   }
 
@@ -48,6 +54,7 @@ export const removeMember = (
     if (updated === null) {
       // Nếu node con bị xoá => xoá khỏi mảng
       root.children.splice(i, 1);
+      toast.success("Xóa thành công");
       i--; // điều chỉnh index sau khi splice
     } else {
       root.children[i] = updated;
