@@ -1,4 +1,4 @@
-# Gia Pha Opal Project
+# Gia Pha Project
 
 This project consists of two main applications:  
 - **Client (User View):** [https://gia-pha-opal.vercel.app/](https://gia-pha-opal.vercel.app/)  
