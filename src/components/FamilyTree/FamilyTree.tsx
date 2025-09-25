@@ -396,10 +396,10 @@ function FamilyTree({ mode = "client", data }: FamilyTreeProps) {
             {mode === "admin" ? "Chỉnh sửa" : "Xem chi tiết"}
           </button>
 
-          <button onClick={() => console.log("Xem đời sau")}>
+          {/* <button onClick={() => console.log("Xem đời sau")}>
             Xem đời sau
-          </button>
-          <button onClick={() => console.log("Trở về gốc")}>Trở về gốc</button>
+          </button> */}
+          {/* <button onClick={() => console.log("Trở về gốc")}>Trở về gốc</button> */}
 
           {mode === "admin" && (
             <button onClick={() => {
